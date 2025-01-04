@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Articles et Conférences</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image: url('https://www.w3schools.com/w3images/workbench.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .nav-tabs .nav-link {
+            background-color: #f0ad4e;
+            color: white;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: #d9534f;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        table {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn-primary {
+            background-color: #ff7043;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #f44336;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border: none;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border: none;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .input-group input {
+            border-radius: 20px;
+        }
+
+        .input-group button {
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Gestion des Articles et Conférences</h1>
+
+    <!-- Navigation entre Articles et Conférences -->
+    <ul class="nav nav-tabs mb-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="#articles" data-bs-toggle="tab">Articles</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#conferences" data-bs-toggle="tab">Conférences</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <!-- Section Articles -->
+        <div class="tab-pane fade show active" id="articles">
+            <div class="d-flex justify-content-between mb-3">
+                <h2>Liste des Articles</h2>
+                <a href="createArticle.html" class="btn btn-primary">Ajouter un Article</a>
+            </div>
+
+            <form class="mb-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Rechercher un article">
+                    <button type="submit" class="btn btn-outline-secondary">Rechercher</button>
+                </div>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Résumé</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Exemple d'Article</td>
+                    <td>Ceci est un exemple de résumé d'article.</td>
+                    <td>
+                        <a href="articleDetails.html" class="btn btn-info btn-sm">Voir</a>
+                        <a href="editArticle.html" class="btn btn-warning btn-sm">Modifier</a>
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section Conférences -->
+        <div class="tab-pane fade" id="conferences">
+            <div class="d-flex justify-content-between mb-3">
+                <h2>Liste des Conférences</h2>
+                <a href="createConference.html" class="btn btn-primary">Ajouter une Conférence</a>
+            </div>
+
+            <form class="mb-3">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Rechercher une conférence">
+                    <button type="submit" class="btn btn-outline-secondary">Rechercher</button>
+                </div>
+            </form>
+
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Conférence Exemple</td>
+                    <td>Cette conférence parle de ...</td>
+                    <td>2025-01-15</td>
+                    <td>
+                        <a href="conferenceDetails.html" class="btn btn-info btn-sm">Voir</a>
+                        <a href="editConference.html" class="btn btn-warning btn-sm">Modifier</a>
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

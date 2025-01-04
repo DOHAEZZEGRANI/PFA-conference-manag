@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Details of: <span th:text="${articleDetails.title}">Article Title</span></h1>
+    <p><strong>Abstract:</strong> <span th:text="${articleDetails.abstractText}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${articleDetails.status}"></span></p>
+    <p><strong>Submission Date:</strong> <span th:text="${articleDetails.submissionDate}"></span></p>
+    <a href="/articles/indexPage" class="btn">Back to List</a>
+</div>
+</body>
+</html>

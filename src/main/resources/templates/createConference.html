@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Conference</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, select {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1em;
+        }
+        .btn {
+            background: #5c67f2;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #4852c9;
+        }
+        .btn-cancel {
+            background: #f44336;
+            margin-top: 10px;
+        }
+        .btn-cancel:hover {
+            background: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Create Conference</h1>
+    <form th:action="@{/conferences/saveConference}" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" placeholder="Enter conference title" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" placeholder="Enter description" required></textarea>
+
+        <label for="submissionStartDate">Submission Start Date:</label>
+        <input type="datetime-local" id="submissionStartDate" name="submissionStartDate" required>
+
+        <label for="submissionEndDate">Submission End Date:</label>
+        <input type="datetime-local" id="submissionEndDate" name="submissionEndDate" required>
+
+        <label for="conferenceDate">Conference Date:</label>
+        <input type="datetime-local" id="conferenceDate" name="conferenceDate" required>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option th:each="status : ${statusList}" th:value="${status}" th:text="${status}"></option>
+        </select>
+
+        <button type="submit" class="btn">Save Conference</button>
+        <a href="/conferences/indexPage" class="btn btn-cancel">Cancel</a>
+    </form>
+</div>
+</body>
+</html>

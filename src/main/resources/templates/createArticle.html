@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Article</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, select {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1em;
+        }
+        .btn {
+            background: #5c67f2;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #4852c9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Create Article</h1>
+    <form th:action="@{/articles/saveArticle}" method="post" th:object="${article}">
+        <input type="text" placeholder="Title" th:field="*{title}" required>
+        <textarea placeholder="Abstract" th:field="*{abstractText}" rows="4" required></textarea>
+        <input type="text" placeholder="File Path" th:field="*{filePath}" required>
+        <select th:field="*{status}">
+            <option value="SUBMITTED">Submitted</option>
+            <option value="UNDER_REVIEW">Under Review</option>
+            <option value="ACCEPTED">Accepted</option>
+            <option value="REJECTED">Rejected</option>
+        </select>
+        <button type="submit" class="btn">Submit</button>
+    </form>
+</div>
+</body>
+</html>
