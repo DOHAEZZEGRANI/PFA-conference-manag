@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@RequestMapping("/conferences")
+
 public class ConferenceController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class ConferenceController {
     }
 
     // Obtenir une conférence par son ID
-    @GetMapping("/details")
+    @GetMapping("/detailsConference")
     public String getConferenceDetails(
             Model model,
             @RequestParam(name = "id") Long id) {
@@ -47,7 +47,7 @@ public class ConferenceController {
     }
 
     // Supprimer une conférence
-    @GetMapping("/delete")
+    @GetMapping("/deleteConference")
     public String deleteConference(@RequestParam(name = "id") Long id) {
         if (conferenceService.deleteConference(id)) {
             return "redirect:/conferences/indexPage"; // Redirige vers la liste des conférences
@@ -83,7 +83,7 @@ public class ConferenceController {
     }
 
     // Liste des conférences
-    @GetMapping("/indexPage")
+    @GetMapping("/indexPageConference")
     public String listConferences(
             Model model,
             @RequestParam(name = "page", defaultValue = "0") int page,

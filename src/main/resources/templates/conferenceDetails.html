@@ -3,8 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h1>Details of: <span th:text="${conferenceDetails.title}">Article Title</span></h1>
+    <p><strong>description:</strong> <span th:text="${conferenceDetails.description}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${conferenceDetails.status}"></span></p>
+    <p><strong> submissionStartDate:</strong> <span th:text="${conferenceDetails.submissionStartDate}"></span></p>
+    <p><strong>submissionEndDate :</strong> <span th:text="${conferenceDetails.submissionEndDate}"></span></p>
+    <p><strong>conferenceDate :</strong> <span th:text="${conferenceDetails.conferenceDate}"></span></p>
 
+    <a href="/indexPageConference" class="btn">Back to List</a>
+</div>
 </body>
 </html>

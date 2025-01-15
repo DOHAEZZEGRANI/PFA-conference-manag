@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 
 @Controller
-@RequestMapping("/articles")
+
 public class ArticleController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class ArticleController {
         return "redirect:/articles/indexPage";
     }
 
-    @GetMapping("/details")
+    @GetMapping("/detailsArticle")
     public String getArticleDetails(
             Model model,
             @RequestParam(name = "id") Long id) {
@@ -43,7 +43,7 @@ public class ArticleController {
         return "articleDetails";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/deleteArticle")
     public String deleteArticle(@RequestParam(name = "id") Long id) {
         if (articleService.deleteArticle(id)) {
             return "redirect:/articles/indexPage";
@@ -70,7 +70,7 @@ public class ArticleController {
         return "redirect:/articles/indexPage";
     }
 
-    @GetMapping("/indexPage")
+    @GetMapping("/indexPageArticle")
     public String listArticles(
             Model model,
             @RequestParam(name = "page", defaultValue = "0") int page,
@@ -99,4 +99,8 @@ public class ArticleController {
         model.addAttribute("articleToBeUpdated", article);
         return "editArticle";
     }
+    @GetMapping("")
+    public String hello() {
+        return "layout";}
+
 }
