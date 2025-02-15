@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Evaluation Details</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+
+<h1>Evaluation Details</h1>
+
+<div class="card">
+    <div class="card-header">Evaluation Feedback</div>
+    <div class="card-body">
+        <p><strong>Title:</strong> <span th:text="${evaluation.title}"></span></p>
+        <p><strong>Researcher:</strong> <span th:text="${evaluation.researcher.name}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${evaluation.status}"></span></p>
+        <p><strong>Comments:</strong></p>
+        <p th:text="${evaluation.comments}"></p>
+        <button onclick="openModal()">Provide Feedback</button>
+    </div>
+</div>
+
+<!-- Modal for Feedback -->
+<div id="feedbackModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h3>Provide Your Feedback</h3>
+        <textarea id="feedback" placeholder="Enter feedback here..."></textarea><br><br>
+        <button th:onclick="submitFeedback()">Submit</button>
+    </div>
+</div>
+
+<script>
+    var modal = document.getElementById("feedbackModal");
+
+    function openModal() {
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+</script>
 
 </body>
 </html>

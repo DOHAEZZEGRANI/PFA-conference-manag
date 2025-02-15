@@ -1,37 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.com" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Details</title>
+    <meta charset="utf-8"/>
+    <title>Détails de l'article</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-image: url('https://wallpapercave.com/wp/wp2888506.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
         }
+
         .container {
-            width: 80%;
-            margin: 50px auto;
-            background: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 150%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1, h2 {
-            color: #333;
+
+        h2 {
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
         }
+
         p {
-            color: #555;
+            color: #f3f3f3;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .center-button {
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Details of: <span th:text="${articleDetails.title}">Article Title</span></h1>
-    <p><strong>Abstract:</strong> <span th:text="${articleDetails.abstractText}"></span></p>
-    <p><strong>Status:</strong> <span th:text="${articleDetails.status}"></span></p>
-    <p><strong>Submission Date:</strong> <span th:text="${articleDetails.submissionDate}"></span></p>
-    <a href="/articles/indexPage" class="btn">Back to List</a>
+<div layout:fragment="content">
+    <div class="container">
+        <h2>Article Details</h2>
+        <p>ID: <span th:text="${ArticleWithDetails.id}"></span></p>
+        <p>Title: <span th:text="${ArticleWithDetails.title}"></span></p>
+        <p>Abstract: <span th:text="${ArticleWithDetails.abstractText}"></span></p>
+        <p>Status: <span th:text="${ArticleWithDetails.status}"></span></p>
+        <p>Submission Date: <span th:text="${#temporals.format(ArticleWithDetails.submissionDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+
+        <div class="center-button">
+            <a class="btn btn-primary mt-3" th:href="@{/indexpage}">Back to List</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

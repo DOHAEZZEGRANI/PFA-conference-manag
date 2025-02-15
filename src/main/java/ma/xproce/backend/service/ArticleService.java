@@ -33,10 +33,16 @@ public class ArticleService {
         return articleRepository.findByResearcherId(researcherId);
     }
 
-    public Optional<Article> getArticleById(Long id) {
-        return articleRepository.findById(id);
-    }
+    public Article getArticleById(Long id) {
+        try {
+            return articleRepository.findById(id).get();
 
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
     public Article updateArticle(Article article) {
         return articleRepository.save(article);
     }
@@ -47,5 +53,34 @@ public class ArticleService {
             return true;
         }
         return false;
+    }
+
+    public Boolean deleteArticle(Article article) {
+        try {
+            articleRepository.delete(article);
+            return true;
+
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+            return false;
+        }
+    }
+
+
+
+    public Boolean deleteArticleById(Long id) {
+        try {
+
+            articleRepository.deleteById(id);
+            return true;
+
+        }catch (Exception e){
+
+            System.out.println(e.getMessage());
+
+            return false;
+        }
     }
 }

@@ -4,45 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Conference</title>
-    <style>
-        /* Same styles as createConference.html */
-    </style>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<div class="container">
-    <h1>Edit Conference</h1>
-    <form th:action="@{/conferences/updateConference}" method="post">
-        <input type="hidden" th:value="${conferenceToBeUpdated.id}" name="id">
+<h1>Edit Conference</h1>
 
+<form action="/updateConference" method="post">
+    <input type="hidden" name="id" th:value="${conferenceToBeUpdated.id}" />
+    <div>
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" th:value="${conferenceToBeUpdated.title}" required>
-
+        <input type="text" id="title" name="title" th:value="${conferenceToBeUpdated.title}" required />
+    </div>
+    <div>
         <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" required>
-                <span th:text="${conferenceToBeUpdated.description}"></span>
-            </textarea>
-
+        <textarea id="description" name="description" required th:text="${conferenceToBeUpdated.description}"></textarea>
+    </div>
+    <div>
         <label for="submissionStartDate">Submission Start Date:</label>
-        <input type="datetime-local" id="submissionStartDate" name="submissionStartDate"
-               th:value="${#dates.format(conferenceToBeUpdated.submissionStartDate, 'yyyy-MM-dd\'T\'HH:mm')}" required>
-
+        <input type="datetime-local" id="submissionStartDate" name="submissionStartDate" th:value="${conferenceToBeUpdated.submissionStartDate}" required />
+    </div>
+    <div>
         <label for="submissionEndDate">Submission End Date:</label>
-        <input type="datetime-local" id="submissionEndDate" name="submissionEndDate"
-               th:value="${#dates.format(conferenceToBeUpdated.submissionEndDate, 'yyyy-MM-dd\'T\'HH:mm')}" required>
-
+        <input type="datetime-local" id="submissionEndDate" name="submissionEndDate" th:value="${conferenceToBeUpdated.submissionEndDate}" required />
+    </div>
+    <div>
         <label for="conferenceDate">Conference Date:</label>
-        <input type="datetime-local" id="conferenceDate" name="conferenceDate"
-               th:value="${#dates.format(conferenceToBeUpdated.conferenceDate, 'yyyy-MM-dd\'T\'HH:mm')}" required>
-
+        <input type="datetime-local" id="conferenceDate" name="conferenceDate" th:value="${conferenceToBeUpdated.conferenceDate}" required />
+    </div>
+    <div>
         <label for="status">Status:</label>
-        <select id="status" name="status">
-            <option th:each="status : ${statusList}" th:value="${status}"
-                    th:selected="${conferenceToBeUpdated.status == status}" th:text="${status}"></option>
+        <select id="status" name="status" required>
+            <option th:each="status : ${statusList}" th:value="${status}" th:text="${status}"></option>
         </select>
+    </div>
+    <button type="submit">Update Conference</button>
+</form>
 
-        <button type="submit" class="btn">Save Changes</button>
-        <a href="/conferences/indexPage" class="btn btn-cancel">Cancel</a>
-    </form>
-</div>
+<a href="/indexPageConference">Back to Conferences</a>
 </body>
 </html>

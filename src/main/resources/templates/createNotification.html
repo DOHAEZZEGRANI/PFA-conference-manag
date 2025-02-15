@@ -2,9 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Notification</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+<h1>Create Notification</h1>
 
+<form action="/saveNotification" method="post" th:object="${notification}">
+    <div>
+        <label for="type">Type:</label>
+        <input type="text" id="type" th:field="*{type}" required />
+    </div>
+    <div>
+        <label for="content">Content:</label>
+        <textarea id="content" th:field="*{content}" required></textarea>
+    </div>
+    <div>
+        <label for="status">Status:</label>
+        <select id="status" th:field="*{status}" required>
+            <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="recipient">Recipient:</label>
+        <select id="recipient" th:field="*{recipient.id}" required>
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+        </select>
+    </div>
+    <button type="submit">Send Notification</button>
+</form>
+
+<a href="/notifications">Back to Notifications</a>
 </body>
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications List</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<h1>Notifications</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Type</th>
+        <th>Content</th>
+        <th>Status</th>
+        <th>Recipient</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="notification : ${listNotifications}">
+        <td th:text="${notification.type}"></td>
+        <td th:text="${notification.content}"></td>
+        <td th:text="${notification.status}"></td>
+        <td th:text="${notification.recipient.name}"></td>
+        <td th:text="${notification.notificationDate}"></td>
+        <td>
+            <a th:href="@{/editNotification?id={id}(id=${notification.id})}">Edit</a> |
+            <a th:href="@{/deleteNotification?id={id}(id=${notification.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/createNotification">Create New Notification</a>
+</body>
+</html>

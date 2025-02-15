@@ -1,67 +1,119 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.com" lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Article</title>
+    <meta charset="utf-8"/>
+    <title>Créer un article</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #eef2f3;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            margin-top: 50px;
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        input, textarea, select {
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 1em;
-        }
-        .btn {
-            background: #5c67f2;
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            background-image: url('https://wallpapercave.com/wp/wp2888506.jpg');
+            background-size: cover;
+            background-position: center;
             color: white;
-            padding: 10px;
-            text-align: center;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
-        .btn:hover {
-            background: #4852c9;
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            padding-top: 20px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Pour améliorer la lisibilité du texte */
+            border-radius: 10px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background-color: brown;
+            border-color: brown;
+        }
+
+        .btn-primary:hover {
+            background-color: brown;
+            border-color: brown;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Create Article</h1>
-    <form th:action="@{/articles/saveArticle}" method="post" th:object="${article}">
-        <input type="text" placeholder="Title" th:field="*{title}" required>
-        <textarea placeholder="Abstract" th:field="*{abstractText}" rows="4" required></textarea>
-        <input type="text" placeholder="File Path" th:field="*{filePath}" required>
-        <select th:field="*{status}">
-            <option value="SUBMITTED">Submitted</option>
-            <option value="UNDER_REVIEW">Under Review</option>
-            <option value="ACCEPTED">Accepted</option>
-            <option value="REJECTED">Rejected</option>
-        </select>
-        <button type="submit" class="btn">Submit</button>
-    </form>
+<div class="container" align="center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-center mb-4">Créer un nouvel article</h1>
+                <form th:action="@{/ajouterOncee}" th:object="${Article}" method="post">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Titre :</label>
+                        <input type="text" class="form-control w-50" id="title" th:field="*{title}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="abstractText" class="form-label">Résumé :</label>
+                        <textarea class="form-control w-50" id="abstractText" th:field="*{abstractText}"></textarea>
+                        <span class="text-danger" th:if="${#fields.hasErrors('abstractText')}" th:errors="*{abstractText}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Statut :</label>
+                        <select class="form-control w-50" id="status" th:field="*{status}">
+                            <option th:each="status : ${T(ma.xproce.backend.Dao.entities.ArticleStatus).values()}"
+                                    th:value="${status}" th:text="${status}"></option>
+                        </select>
+                        <span class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="submissionDate" class="form-label">Date de soumission :</label>
+                        <input type="datetime-local" class="form-control w-50" id="submissionDate" th:field="*{submissionDate}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('submissionDate')}" th:errors="*{submissionDate}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="filePath" class="form-label">Chemin du fichier :</label>
+                        <input type="text" class="form-control w-50" id="filePath" th:field="*{filePath}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('filePath')}" th:errors="*{filePath}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="researcher" class="form-label">Chercheur :</label>
+                        <select class="form-control w-50" id="researcher" th:field="*{researcher}">
+                            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+                        </select>
+                        <span class="text-danger" th:if="${#fields.hasErrors('researcher')}" th:errors="*{researcher}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="conference" class="form-label">Conférence :</label>
+                        <select class="form-control w-50" id="conference" th:field="*{conference}">
+                            <option th:each="conference : ${conferences}" th:value="${conference.id}" th:text="${conference.name}"></option>
+                        </select>
+                        <span class="text-danger" th:if="${#fields.hasErrors('conference')}" th:errors="*{conference}"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary form-control w-50">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

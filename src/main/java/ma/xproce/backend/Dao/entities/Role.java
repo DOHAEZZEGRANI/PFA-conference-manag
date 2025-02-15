@@ -23,5 +23,5 @@ public class Role {
     @OneToMany(mappedBy = "role")
     private Set<User> users;
 
-    // Getters and setters
+
 }

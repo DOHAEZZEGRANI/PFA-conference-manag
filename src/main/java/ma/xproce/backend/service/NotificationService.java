@@ -16,6 +16,9 @@ public class NotificationService {
     private NotificationRepository notificationRepository;
 
     // Créer une nouvelle notification
+    public Notification saveNotification(Notification notification) {
+        return notificationRepository.save(notification);
+    }
     public Notification createNotification(Notification notification) {
         return notificationRepository.save(notification);
     }

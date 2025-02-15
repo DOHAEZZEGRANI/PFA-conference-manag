@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Users</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+
+<h1>Users</h1>
+
+<form th:action="@{/indexPageUser}" method="get">
+    <input type="text" name="search" placeholder="Search by name" value="{{keyword}}">
+    <button type="submit">Search</button>
+</form>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${listUsers}">
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.role.name}"></td>
+            <td>
+                <a th:href="@{/detailsUser(id=${user.id})}">Details</a>
+                <a th:href="@{/editUser(id=${user.id})}">Edit</a>
+                <a th:href="@{/deleteUser(id=${user.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <ul>
+        <li th:each="i : ${pages}">
+            <a th:href="@{/indexPageUser(page=${i}, size=${size}, search=${keyword})}">Page [[${i+1}]]</a>
+        </li>
+    </ul>
+</div>
 
 </body>
 </html>

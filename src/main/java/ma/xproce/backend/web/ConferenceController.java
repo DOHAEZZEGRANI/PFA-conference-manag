@@ -2,118 +2,117 @@ package ma.xproce.backend.web;
 
 import jakarta.validation.Valid;
 import ma.xproce.backend.Dao.entities.Conference;
-import ma.xproce.backend.Dao.entities.ConferenceStatus;
 import ma.xproce.backend.service.ConferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 @Controller
-
+@SpringBootApplication
 public class ConferenceController {
 
     @Autowired
     private ConferenceService conferenceService;
 
-    // Créer une nouvelle conférence
+    // Sauvegarder une conférence
     @PostMapping("/saveConference")
-    public String createConference(
-            Model model,
-            @Valid Conference conference,
-            BindingResult bindingResult) {
+    public String saveConference(Model model,
+                                 @Valid Conference conference,
+                                 BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "createConference"; // Retourne la vue avec erreurs
+            return "createConference";  // Afficher le formulaire avec erreurs
         }
-        conference.setSubmissionStartDate(LocalDateTime.now()); // Exemple d'attribution de la date de soumission
         conferenceService.createConference(conference);
-        return "redirect:/conferences/indexPage"; // Redirige vers la liste
+        return "redirect:/conferenceIndex";  // Redirection vers la page des conférences
     }
 
-    // Obtenir une conférence par son ID
-    @GetMapping("/detailsConference")
-    public String getConferenceDetails(
-            Model model,
-            @RequestParam(name = "id") Long id) {
-        Conference conference = conferenceService.getConferenceById(id)
-                .orElseThrow(() -> new RuntimeException("Conference not found"));
-        model.addAttribute("conferenceDetails", conference);
-        return "conferenceDetails"; // Vue de détails
+    // Rediriger vers la page d'index des conférences
+
+    // Afficher les détails d'une conférence
+    @GetMapping("/conferenceDetails")
+    public String conferenceDetails(Model model,
+                                    @RequestParam(name = "id") Long id) {
+        Conference conference = conferenceService.getConferenceById(id);
+        if (conference != null) {
+            model.addAttribute("ConferenceWithDetails", conference);
+            return "/conferenceDetails";  // Afficher les détails de la conférence
+        } else {
+            return "error";  // Afficher une erreur si la conférence n'existe pas
+        }
     }
 
     // Supprimer une conférence
     @GetMapping("/deleteConference")
     public String deleteConference(@RequestParam(name = "id") Long id) {
-        if (conferenceService.deleteConference(id)) {
-            return "redirect:/conferences/indexPage"; // Redirige vers la liste des conférences
+        if (conferenceService.deleteConferenceById(id)) {
+            return "redirect:/conferenceIndex";  // Rediriger après suppression
         } else {
-            return "error"; // Page d'erreur si la conférence n'a pas pu être supprimée
+            return "error";  // Afficher une erreur si la suppression échoue
         }
     }
 
     // Mettre à jour une conférence
     @PostMapping("/updateConference")
-    public String updateConferenceAction(
-            Model model,
-            @RequestParam(name = "id") Long id,
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "description") String description,
-            @RequestParam(name = "submissionStartDate") String submissionStartDate, // Conversion possible de String en LocalDateTime
-            @RequestParam(name = "submissionEndDate") String submissionEndDate,
-            @RequestParam(name = "conferenceDate") String conferenceDate,
-            @RequestParam(name = "status") String status) {
-        Conference conference = conferenceService.getConferenceById(id)
-                .orElseThrow(() -> new RuntimeException("Conference not found"));
+    public String updateConference(Model model,
+                                   @RequestParam(name = "id") Long id,
+                                   @RequestParam(name = "title") String title,
+                                   @RequestParam(name = "description") String description,
+                                   @RequestParam(name = "submissionStartDate") LocalDateTime submissionStartDate,
+                                   @RequestParam(name = "submissionEndDate") LocalDateTime submissionEndDate,
+                                   @RequestParam(name = "conferenceDate") LocalDateTime conferenceDate) {
+        Conference conference = conferenceService.getConferenceById(id);
+        if (conference != null) {
+            conference.setTitle(title);
+            conference.setDescription(description);
+            conference.setSubmissionStartDate(submissionStartDate);
+            conference.setSubmissionEndDate(submissionEndDate);
+            conference.setConferenceDate(conferenceDate);
 
-        // Conversion des dates depuis String
-        conference.setTitle(title);
-        conference.setDescription(description);
-        conference.setSubmissionStartDate(LocalDateTime.parse(submissionStartDate));
-        conference.setSubmissionEndDate(LocalDateTime.parse(submissionEndDate));
-        conference.setConferenceDate(LocalDateTime.parse(conferenceDate));
-        conference.setStatus(Enum.valueOf(ConferenceStatus.class, status));
-
-        conferenceService.updateConference(conference);
-        return "redirect:/conferences/indexPage"; // Redirige vers la liste des conférences
+            conferenceService.updateConference(conference);
+            return "redirect:/conferenceIndex";  // Rediriger après mise à jour
+        } else {
+            return "error";  // Afficher une erreur si la conférence n'existe pas
+        }
     }
 
-    // Liste des conférences
-    @GetMapping("/indexPageConference")
-    public String listConferences(
-            Model model,
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "6") int size,
-            @RequestParam(name = "search", defaultValue = "") String keyword) {
-        var conferences = conferenceService.searchConferences(keyword, page, size);
-        model.addAttribute("listConferences", conferences.getContent());
-        model.addAttribute("pages", new int[conferences.getTotalPages()]);
-        model.addAttribute("keyword", keyword);
-        model.addAttribute("page", page);
-        return "indexConferences"; // Vue de liste des conférences
-    }
-
-    // Formulaire de création de conférence
+    // Formulaire pour créer une conférence
     @GetMapping("/createConference")
     public String createConferenceForm(Model model) {
-        model.addAttribute("conference", new Conference());
-        model.addAttribute("statusList", ConferenceStatus.values()); // Liste des statuts
-        return "createConference"; // Vue de création
+        model.addAttribute("Conference", new Conference());  // Créer une nouvelle conférence
+        return "createConference";  // Afficher le formulaire de création
     }
 
-    // Formulaire d'édition d'une conférence
+    // Liste des conférences avec pagination et recherche
+    @GetMapping("/conferenceIndex")
+    public String listConferences(Model model,
+                                  @RequestParam(name = "page", defaultValue = "0") int page,
+                                  @RequestParam(name = "size", defaultValue = "6") int size,
+                                  @RequestParam(name = "search", defaultValue = "") String keyword) {
+        Page<Conference> conferences = conferenceService.searchConferences(keyword, page, size);
+        model.addAttribute("listConference", conferences.getContent());
+
+        int[] pages = new int[conferences.getTotalPages()];
+        model.addAttribute("pages", pages);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("page", page);
+        return "indexConferences";  // Afficher la liste des conférences
+    }
+
+    // Formulaire pour modifier une conférence
     @GetMapping("/editConference")
-    public String editConferenceForm(
-            Model model,
-            @RequestParam(name = "id") Long id) {
-        Conference conference = conferenceService.getConferenceById(id)
-                .orElseThrow(() -> new RuntimeException("Conference not found"));
-        model.addAttribute("conferenceToBeUpdated", conference);
-        model.addAttribute("statusList", ConferenceStatus.values()); // Liste des statuts
-        return "editConference"; // Formulaire d'édition
+    public String editConferenceForm(Model model, @RequestParam(name = "id") Long id) {
+        Conference conference = conferenceService.getConferenceById(id);
+        if (conference != null) {
+            model.addAttribute("ConferenceToBeUpdated", conference);  // Ajouter la conférence à modifier au modèle
+            return "editConference";  // Afficher le formulaire d'édition
+        } else {
+            return "error";  // Afficher une erreur si la conférence n'existe pas
+        }
     }
 }

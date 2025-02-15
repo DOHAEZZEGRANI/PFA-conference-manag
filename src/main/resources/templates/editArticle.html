@@ -1,87 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Article</title>
+    <meta charset="utf-8"/>
+    <title>Modifier l'article</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #eef2f3;
+            background-image: url('https://wallpapercave.com/wp/wp2888506.jpg'); /* Image de fond */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
             margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            margin-top: 50px;
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-        form {
             display: flex;
-            flex-direction: column;
-        }
-        input, textarea, select {
-            margin: 10px 0;
-            padding: 10px;
-            font-size: 1em;
-        }
-        .btn {
-            background: #5c67f2;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
             color: white;
-            padding: 10px;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7); /* Fond transparent noir */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h2 {
+            color: #ffffff; /* Couleur du texte du titre */
             text-align: center;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            margin-bottom: 20px;
         }
-        .btn:hover {
-            background: #4852c9;
+
+        .form-label {
+            color: #f3f3f3; /* Couleur des étiquettes */
         }
-        .btn-cancel {
-            background: #f44336;
-            margin-top: 10px;
+
+        .form-control, .form-select {
+            border-color: #f3f3f3; /* Couleur des bordures des champs de formulaire */
         }
-        .btn-cancel:hover {
-            background: #d32f2f;
+
+        .form-control:focus, .form-select:focus {
+            border-color: #ffffff; /* Couleur de la bordure au focus */
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Ombre au focus */
+        }
+
+        .btn-primary {
+            background-color: #f52222; /* Couleur de fond des boutons */
+            border-color: #f52222; /* Couleur des bordures des boutons */
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Couleur de fond des boutons au survol */
+            border-color: #0056b3; /* Couleur des bordures des boutons au survol */
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Edit Article</h1>
-    <form th:action="@{/articles/updateArticle}" method="post">
-        <input type="hidden" th:value="${articleToBeUpdated.id}" name="id">
 
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" th:value="${articleToBeUpdated.title}" required>
+    <div class="container">
+        <h2>Modifier l'article</h2>
+        <form method="post" th:action="@{/ajouterhArticle}">
+            <input type="hidden" name="id" th:value="${ArticleToBeUpdated.id}"/>
 
-        <label for="abstractText">Abstract:</label>
-        <textarea id="abstractText" name="abstractText" rows="4" required>
-                <span th:text="${articleToBeUpdated.abstractText}"></span>
-            </textarea>
+            <div class="mb-3">
+                <label class="form-label" for="title">Titre</label>
+                <input type="text" class="form-control" id="title" name="title" th:value="${ArticleToBeUpdated.title}"/>
+            </div>
 
-        <label for="filePath">File Path:</label>
-        <input type="text" id="filePath" name="filePath" th:value="${articleToBeUpdated.filePath}" required>
+            <div class="mb-3">
+                <label class="form-label" for="abstractText">Résumé</label>
+                <textarea class="form-control" id="abstractText" name="abstractText" th:text="${ArticleToBeUpdated.abstractText}"></textarea>
+            </div>
 
-        <label for="status">Status:</label>
-        <select id="status" name="status" th:value="${articleToBeUpdated.status}">
-            <option value="SUBMITTED" th:selected="${articleToBeUpdated.status == 'SUBMITTED'}">Submitted</option>
-            <option value="UNDER_REVIEW" th:selected="${articleToBeUpdated.status == 'UNDER_REVIEW'}">Under Review</option>
-            <option value="ACCEPTED" th:selected="${articleToBeUpdated.status == 'ACCEPTED'}">Accepted</option>
-            <option value="REJECTED" th:selected="${articleToBeUpdated.status == 'REJECTED'}">Rejected</option>
-        </select>
+            <div class="mb-3">
+                <label class="form-label" for="status">Statut</label>
+                <select class="form-select" id="status" name="status" th:value="${ArticleToBeUpdated.status}">
+                    <option th:each="status : ${statuses}" th:value="${status}" th:text="${status.name()}"></option>
+                </select>
+            </div>
 
-        <button type="submit" class="btn">Save Changes</button>
-        <a href="/articles/indexPage" class="btn btn-cancel">Cancel</a>
-    </form>
-</div>
+            <div class="mb-3">
+                <label class="form-label" for="filePath">Chemin du fichier</label>
+                <input type="text" class="form-control" id="filePath" name="filePath" th:value="${ArticleToBeUpdated.filePath}"/>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>
+        </form>
+    </div>
 </body>
 </html>

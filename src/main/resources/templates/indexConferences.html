@@ -1,10 +1,152 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Conférences</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            padding-top: 20px;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #343a40;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cardh {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            background-image: url('https://i.pinimg.com/originals/ab/90/70/ab9070c3b40ae0e8c1b7521058c26cbf.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .card-body {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background-color: brown;
+            border-color: brown;
+        }
+
+        .btn-primary:hover {
+            background-color: #a52a2a;
+            border-color: #a52a2a;
+        }
+
+        .btn-outline-primary {
+            color: #fff;
+            border-color: #28a745;
+            background-color: #28a745;
+        }
+
+        .btn-outline-primary:hover {
+            color: #fff;
+            background-color: brown;
+            border-color: brown;
+        }
+
+        .pagination .page-link {
+            color: brown;
+        }
+
+        .pagination .page-link.active {
+            background-color: brown;
+            border-color: brown;
+            color: white;
+        }
+    </style>
 </head>
 <body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: brown;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Gestion des Conférences</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Conférences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ajouter une Conférence</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Déconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
+<div class="container">
+    <h1>Gestion des Conférences</h1>
+
+    <!-- Barre de recherche -->
+    <div class="d-flex justify-content-center mb-4">
+        <form method="get" th:action="@{conferencePage}" class="d-flex">
+            <input type="text" name="search" class="form-control me-2" th:value="${keyword}" placeholder="Rechercher une conférence"/>
+            <button class="btn btn-primary" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <!-- Liste des conférences -->
+    <div class="row">
+        <div class="col-md-4" th:each="conference : ${listConference}">
+            <div class="cardh">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${conference.title}"></h5>
+                    <p class="card-text">
+                        <strong>Description:</strong> <span th:text="${conference.description}"></span><br/>
+                        <strong>Date de Soumission (Début):</strong> <span th:text="${conference.submissionStartDate}"></span><br/>
+                        <strong>Date de Soumission (Fin):</strong> <span th:text="${conference.submissionEndDate}"></span><br/>
+                        <strong>Date de Conférence:</strong> <span th:text="${conference.conferenceDate}"></span><br/>
+                        <strong>Statut:</strong> <span th:text="${conference.status}"></span>
+                    </p>
+                    <a th:href="@{detailsConference(id=${conference.id})}" class="btn btn-outline-primary">Voir Détails</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        <ul class="pagination">
+            <li th:each="i : ${#numbers.sequence(0, pages.length - 1)}" th:classappend="${i == page} ? 'active'">
+                <a th:href="@{/conferencePage(page=${i}, search=${keyword})}" class="page-link" th:text="${i + 1}"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
