@@ -47,6 +47,12 @@ public class ArticleController {
     @GetMapping("/login")
     public String login() {
         return "login"; }
+   @GetMapping("/")
+    public String ia() {
+        return "indexArticles"; }
+    @GetMapping("/accueil")
+    public String accueil() {
+        return "accueil"; }
 
 
 

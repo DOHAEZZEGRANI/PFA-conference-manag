@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page d'Accueil</title>
+    <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .hero-section {
+            background-color: #343a40;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .feature-title {
+            font-size: 1.25rem;
+            color: #343a40;
+            margin-top: 10px;
+        }
+        .feature-description {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        .btn-primary {
+            background-color: brown;
+            border-color: brown;
+        }
+
+        .btn-primary:hover {
+            background-color: brown;
+            border-color: brown;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .presentation-section {
+            margin-top: 50px;
+        }
+        .presentation-section h2 {
+            color: #343a40;
+        }
+        .presentation-section p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Gestion des Conférences</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/indexpage">Voir les Articles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/conferenceIndex">Voir les Conférences</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Connection</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="hero-section">
+    <h1>Bienvenue sur le site de gestion des conférences</h1>
+    <p class="lead">Découvrez toutes les fonctionnalités pour gérer vos conférences et articles.</p>
+</div>
+
+<!-- Presentation Section -->
+<div class="container mt-5 presentation-section">
+    <h2>Présentation du Projet</h2>
+    <p>
+        Ce projet vise à fournir une plateforme en ligne complète pour la gestion des conférences scientifiques. La plateforme permet aux organisateurs de conférences, aux chercheurs et aux évaluateurs de collaborer efficacement à travers un système fluide de soumissions, d'évaluations et de suivi des conférences.
+    </p>
+    <p>
+        Les utilisateurs de la plateforme sont divisés en plusieurs rôles, chacun ayant des responsabilités spécifiques :
+    </p>
+    <ul>
+        <li><strong>Administrateur :</strong> Gère l'accès global et l'administration du système.</li>
+        <li><strong>Chair :</strong> Responsable de la création et de la gestion des conférences.</li>
+        <li><strong>Reviewer :</strong> Évalue les articles soumis selon des critères précis.</li>
+        <li><strong>Chercheur :</strong> Soumet des articles et suit le statut de ses soumissions.</li>
+    </ul>
+    <p>
+        La plateforme offre une interface utilisateur conviviale, permettant de soumettre des articles, d'assigner des évaluateurs, de consulter des commentaires et de gérer toutes les étapes du processus de soumission et de révision des articles.
+    </p>
+    <p>
+        Cette plateforme est conçue pour répondre aux besoins des chercheurs en quête d'une solution robuste et facile à utiliser pour le dépôt et l'évaluation de leurs travaux scientifiques.
+    </p>
+</div>
+
+</body>
+</html>

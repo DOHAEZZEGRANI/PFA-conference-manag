@@ -87,13 +87,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="accueil">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Conférences</a>
+                    <a class="nav-link" href="/indexpage">Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ajouter une Conférence</a>
+                    <a class="nav-link" href="/createConference">Ajouter une Conférence</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Déconnexion</a>
@@ -108,7 +108,7 @@
 
     <!-- Barre de recherche -->
     <div class="d-flex justify-content-center mb-4">
-        <form method="get" th:action="@{conferencePage}" class="d-flex">
+        <form method="get" th:action="@{conferenceIndex}" class="d-flex">
             <input type="text" name="search" class="form-control me-2" th:value="${keyword}" placeholder="Rechercher une conférence"/>
             <button class="btn btn-primary" type="submit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

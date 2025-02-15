@@ -1,7 +1,9 @@
 package ma.xproce.backend.web;
 
 import jakarta.validation.Valid;
+import ma.xproce.backend.Dao.entities.Article;
 import ma.xproce.backend.Dao.entities.Conference;
+import ma.xproce.backend.Dao.entities.ConferenceStatus;
 import ma.xproce.backend.service.ConferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -84,8 +86,19 @@ public class ConferenceController {
     // Formulaire pour créer une conférence
     @GetMapping("/createConference")
     public String createConferenceForm(Model model) {
-        model.addAttribute("Conference", new Conference());  // Créer une nouvelle conférence
+        model.addAttribute("Conference", new Conference());
+        model.addAttribute("statusList", ConferenceStatus.values());// Créer une nouvelle conférence
         return "createConference";  // Afficher le formulaire de création
+    }
+    @PostMapping("/ajouterConferenceOncee")
+    public String ajouterConferenceOnce(Model model, @Valid Conference conference, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("Conference", conference);
+            model.addAttribute("statusList", ConferenceStatus.values());// Ajoutez l'objet au modèle
+            return "/createConference";  // Retourner le formulaire avec l'objet en cas d'erreur
+        }
+        conferenceService.createConference(conference);
+        return "redirect:/indexpage";
     }
 
     // Liste des conférences avec pagination et recherche
