@@ -7,67 +7,66 @@
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
-        .cardh {
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            background-image: url('https://i.pinimg.com/originals/ab/90/70/ab9070c3b40ae0e8c1b7521058c26cbf.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-        }
-
-        .card-body {
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            color: #ffffff;
-        }
-
-        .btn-primary {
-            background-color: brown;
-            border-color: brown;
-        }
-
-        .btn-primary:hover {
-            background-color: brown;
-            border-color: brown;
-        }
-
-        .btn-outline-primary {
-            color: #fff;
-            border-color: #28a745;
-            background-color: #28a745;
-        }
-
-        .btn-outline-primary:hover {
-            color: #fff;
-            background-color: brown;
-            border-color: brown;
-        }
         body {
             background-image: url('https://wallpapercave.com/wp/wp2888506.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+        }
+
+
+        .container {
+
+            padding: 20px;
+        }
+
+        .search-bar input {
+            border-radius: 25px;
+        }
+
+        .cardh {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+            transition: transform 0.3s;
+        }
+
+        .cardh:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-custom {
+            background-color: #163f0e;
+            color: #fff;
+            border-radius: 25px;
+        }
+
+        .btn-custom:hover {
+            background-color: brown;
         }
     </style>
 </head>
 <body>
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo" width="80" height="80" class="d-inline-block align-text-top">
+
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Gestion des Articles</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#">DU-FU</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/accueil">Accueil</a>
                 </li>
@@ -78,41 +77,39 @@
                     <a class="nav-link" href="/createArticle">Soumettre un Article</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
+                    <a class="nav-link" href="#">Déconnexion</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div class="container">
-    <h1 class="text-center">Gestion des Articles</h1>
 
-    <div class="d-flex justify-content-center mb-4">
+<div class="container">
+
+    <h1 class="text-center" STYLE="padding: 20px">Gestion des Articles</h1>
+
+    <div class="d-flex justify-content-center search-bar mb-4">
         <form method="get" th:action="@{indexpage}" class="d-flex">
             <input type="text" name="search" class="form-control me-2" th:value="${keyword}" placeholder="Rechercher un article"/>
-            <button class="btn btn-primary" type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>
-            </button>
+            <button class="btn btn-custom" type="submit">🔍</button>
         </form>
     </div>
 
     <div class="row">
         <div class="col-md-4" th:each="article: ${listArticle}">
             <div class="cardh">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${article.title}"></h5>
-                    <p class="card-text">
-                        <strong>Résumé:</strong> <span th:text="${article.abstractText}"></span><br/>
-                        <strong>Fichier:</strong> <span th:text="${article.filePath}"></span><br/>
-                        <strong>Soumission:</strong> <span th:text="${article.submissionDate}"></span><br/>
-                        <strong>Statut:</strong> <span th:text="${article.status}"></span>
-                    </p>
-                    <a th:href="@{detailsArticle(id=${article.id})}" class="btn btn-outline-primary">Voir Détails</a>
-                    <a th:href="@{editArticle(id=${article.id})}" class="btn btn-outline-primary">modifier</a>
-                    <a onclick="return confirm('Are you sure you want to delete this hotel?');" th:href="@{delete(id=${article.id})}" class="btn btn-outline-primary">supprimer</a>
+                <h5 class="card-title" th:text="${article.title}"></h5>
+                <p class="card-text">
+                    <strong>Résumé:</strong> <span th:text="${article.abstractText}"></span><br/>
+                    <strong>Fichier:</strong> <span th:text="${article.filePath}"></span><br/>
+                    <strong>Soumission:</strong> <span th:text="${article.submissionDate}"></span><br/>
+                    <strong>Statut:</strong> <span th:text="${article.status}"></span>
+                </p>
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{detailsArticle(id=${article.id})}" class="btn btn-custom">Voir Détails</a>
+                    <a th:href="@{editArticle(id=${article.id})}" class="btn btn-custom">Modifier</a>
+                    <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');" th:href="@{delete(id=${article.id})}" class="btn btn-custom">Supprimer</a>
                 </div>
             </div>
         </div>

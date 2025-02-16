@@ -10,12 +10,22 @@
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
+            padding-top: 20px;
+        }
+
+        .container {
+            padding: 20px;
         }
         .hero-section {
-            background-color: #343a40;
-            color: white;
+            background-color: #091002;
+            color: #bae1a5;
             padding: 50px 0;
             text-align: center;
+        }
+        li{
+            color: #565d48;
+        }p{
+            color: #ffffff;
         }
         .card {
             border-radius: 10px;
@@ -24,7 +34,7 @@
         }
         .feature-title {
             font-size: 1.25rem;
-            color: #343a40;
+            color: #163f0e;
             margin-top: 10px;
         }
         .feature-description {
@@ -47,21 +57,30 @@
             margin-top: 50px;
         }
         .presentation-section h2 {
-            color: #343a40;
+            color: #565d48;
         }
         .presentation-section p {
             font-size: 1.1rem;
-            color: #6c757d;
+            color: #ffffff;
             line-height: 1.6;
+        }
+        body {
+            background-image: url('https://wallpapercave.com/wp/wp2888506.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
         }
     </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo" width="80" height="80" class="d-inline-block align-text-top">
+
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Gestion des Conférences</a>
+        <a class="navbar-brand" href="#">DU-FU</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -88,26 +107,48 @@
 </div>
 
 <!-- Presentation Section -->
-<div class="container mt-5 presentation-section">
-    <h2>Présentation du Projet</h2>
-    <p>
-        Ce projet vise à fournir une plateforme en ligne complète pour la gestion des conférences scientifiques. La plateforme permet aux organisateurs de conférences, aux chercheurs et aux évaluateurs de collaborer efficacement à travers un système fluide de soumissions, d'évaluations et de suivi des conférences.
-    </p>
-    <p>
-        Les utilisateurs de la plateforme sont divisés en plusieurs rôles, chacun ayant des responsabilités spécifiques :
-    </p>
-    <ul>
-        <li><strong>Administrateur :</strong> Gère l'accès global et l'administration du système.</li>
-        <li><strong>Chair :</strong> Responsable de la création et de la gestion des conférences.</li>
-        <li><strong>Reviewer :</strong> Évalue les articles soumis selon des critères précis.</li>
-        <li><strong>Chercheur :</strong> Soumet des articles et suit le statut de ses soumissions.</li>
-    </ul>
-    <p>
-        La plateforme offre une interface utilisateur conviviale, permettant de soumettre des articles, d'assigner des évaluateurs, de consulter des commentaires et de gérer toutes les étapes du processus de soumission et de révision des articles.
-    </p>
-    <p>
-        Cette plateforme est conçue pour répondre aux besoins des chercheurs en quête d'une solution robuste et facile à utiliser pour le dépôt et l'évaluation de leurs travaux scientifiques.
-    </p>
+<div class="container mt-5 presentation-section row">
+    <div class="col-md-6">
+        <img src="https://www.echosciences-grenoble.fr/uploads/article/image/attachment/1005167330/xl_articles.png" alt="Description de l'image" class="img-fluid " style="width: 80%;">
+    </div>
+    <div class="col-md-6">
+        <h2>Présentation du Projet</h2>
+        <p>
+            Ce projet vise à fournir une plateforme en ligne complète pour la gestion des conférences scientifiques. La plateforme permet aux organisateurs de conférences, aux chercheurs et aux évaluateurs de collaborer efficacement à travers un système fluide de soumissions, d'évaluations et de suivi des conférences.
+        </p>
+        <p>
+            Les utilisateurs de la plateforme sont divisés en plusieurs rôles, chacun ayant des responsabilités spécifiques :
+        </p>
+        <ul>
+            <li><strong>Administrateur :</strong> Gère l'accès global et l'administration du système.</li>
+            <li><strong>Chair :</strong> Responsable de la création et de la gestion des conférences.</li>
+            <li><strong>Reviewer :</strong> Évalue les articles soumis selon des critères précis.</li>
+            <li><strong>Chercheur :</strong> Soumet des articles et suit le statut de ses soumissions.</li>
+        </ul>
+
+    </div>
+</div>
+<p>
+    La plateforme offre une interface utilisateur conviviale, permettant de soumettre des articles, d'assigner des évaluateurs, de consulter des commentaires et de gérer toutes les étapes du processus de soumission et de révision des articles.
+</p>
+
+<p>
+    Cette plateforme est conçue pour répondre aux besoins des chercheurs en quête d'une solution robuste et facile à utiliser pour le dépôt et l'évaluation de leurs travaux scientifiques.
+</p>
+<!-- Add the new image next to the last paragraph -->
+<div class="container mt-5 row">
+    <div class="col-md-12">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <p class="text-white" style="flex-grow: 1;">
+                Cette plateforme est conçue pour répondre aux besoins des chercheurs en quête d'une solution robuste et facile à utiliser pour le dépôt et l'évaluation de leurs travaux scientifiques.
+                Sessions en direct, présentations vidéo préenregistrées, salles de répartition, chat.
+                Sessions en direct, présentations vidéo préenregistrées, salles de répartition, chat.
+            </p>
+            <img src="https://img.freepik.com/free-photo/room-used-official-event_23-2151054262.jpg" alt="Room for an official event" class="img-fluid" style="max-width: 50%;">
+        </div>
+    </div>
 </div>
 
 </body>
