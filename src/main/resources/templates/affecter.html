@@ -63,8 +63,8 @@
 <body>
 
 <div class="container">
-    <h2>Modifier l'article</h2>
-    <form method="post" th:action="@{/ajouterhArticle}">
+    <h2>Affecter un reviewer </h2>
+    <form method="post" th:action="@{/affecter}">
         <input type="hidden" name="id" th:value="${ArticleToBeUpdated.id}"/>
 
         <div class="mb-3">
@@ -72,22 +72,8 @@
             <input type="text" class="form-control" id="title" name="title" th:value="${ArticleToBeUpdated.title}"/>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label" for="abstractText">Résumé</label>
-            <textarea class="form-control" id="abstractText" name="abstractText" th:text="${ArticleToBeUpdated.abstractText}"></textarea>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label" for="status">Statut</label>
-            <select class="form-select" id="status" name="status" th:value="${ArticleToBeUpdated.status}">
-                <option th:each="status : ${statuses}" th:value="${status}" th:text="${status.name()}"></option>
-            </select>
-        </div>
 
-        <div class="mb-3">
-            <label class="form-label" for="filePath">Chemin du fichier</label>
-            <input type="text" class="form-control" id="filePath" name="filePath" th:value="${ArticleToBeUpdated.filePath}"/>
-        </div>
 
         <!-- Add researcher selection -->
         <div class="mb-3">
@@ -97,13 +83,7 @@
             </select>
         </div>
 
-        <!-- Add conference selection -->
-        <div class="mb-3">
-            <label class="form-label" for="conferenceId">Conférence</label>
-            <select class="form-select" id="conferenceId" name="conferenceId">
-                <option th:each="conference : ${conferences}" th:value="${conference.id}" th:text="${conference.title}"></option>
-            </select>
-        </div>
+
 
         <button type="submit" class="btn btn-primary">Sauvegarder les modifications</button>
     </form>

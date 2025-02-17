@@ -74,6 +74,10 @@
 
         <div class="center-button">
             <a class="btn btn-primary mt-3" th:href="@{/indexpage}">Back to List</a>
+            <a th:href="@{editArticle(id=${ArticleWithDetails.id})}" class="btn btn-custom">Modifier</a>
+
+            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');" th:href="@{delete(id=${ArticleWithDetails.id})}" class="btn btn-custom">Supprimer</a>
+
         </div>
     </div>
 </div>

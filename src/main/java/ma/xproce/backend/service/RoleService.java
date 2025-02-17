@@ -14,43 +14,37 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    // Créer un nouveau rôle
     public Role createRole(Role role) {
         return roleRepository.save(role);
     }
 
-    // Récupérer un rôle par ID
-    public Optional<Role> getRoleById(Long id) {
-        return roleRepository.findById(id);
-    }
-
-    // Récupérer un rôle par nom
-    public Optional<Role> getRoleByName(String name) {
-        return roleRepository.findByName(name);
-    }
-
-    // Récupérer tous les rôles
     public List<Role> getAllRoles() {
         return roleRepository.findAll();
     }
 
-    // Mettre à jour un rôle
-    public Role updateRole(Long id, Role role) {
-        Optional<Role> existingRole = roleRepository.findById(id);
-        if (existingRole.isPresent()) {
-            Role updatedRole = existingRole.get();
-            updatedRole.setName(role.getName());
-            return roleRepository.save(updatedRole);
-        }
-        throw new RuntimeException("Role not found");
+    public Optional<Role> getRoleById(Long id) {
+        return roleRepository.findById(id);
     }
 
-    // Supprimer un rôle
-    public void deleteRole(Long id) {
+    public Role updateRole(Role role) {
+        return roleRepository.save(role);
+    }
+
+    public boolean deleteRole(Long id) {
         if (roleRepository.existsById(id)) {
             roleRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Role not found");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteRole(Role role) {
+        try {
+            roleRepository.delete(role);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
         }
     }
 }

@@ -17,12 +17,30 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    // Créer un nouveau rôle
+    @GetMapping("/roles")
+    public String listRoles(Model model) {
+        List<Role> roles = roleService.getAllRoles();
+        model.addAttribute("roles", roles);
+        return "roleList";
+    }
+
+    @GetMapping("/createRole")
+    public String createRoleForm(Model model) {
+        model.addAttribute("role", new Role());
+        return "createRole";
+    }
+    @PostMapping("/createRole")
+    public String ajouterRole(Model model, @Valid Role role, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("role", role); // Ajouter l'objet Role au modèle en cas d'erreur
+            return "createRole";  // Retourner le formulaire avec les erreurs affichées
+        }
+        roleService.createRole(role); // Sauvegarder le rôle
+        return "redirect:/roles"; // Rediriger vers la liste des rôles après succès
+    }
+
     @PostMapping("/saveRole")
-    public String createRole(
-            Model model,
-            @Valid Role role,
-            BindingResult bindingResult) {
+    public String saveRole(@Valid Role role, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "createRole";
         }
@@ -30,48 +48,32 @@ public class RoleController {
         return "redirect:/roles";
     }
 
-    // Afficher tous les rôles
-    @GetMapping("/roles")
-    public String listRoles(Model model) {
-        List<Role> roles = roleService.getAllRoles();
-        model.addAttribute("listRoles", roles);
-        return "rolesList";
+    @GetMapping("/editRole")
+    public String editRole(Model model, @RequestParam(name = "id") Long id) {
+        Role role = roleService.getRoleById(id).orElse(null);
+        if (role != null) {
+            model.addAttribute("roleToBeUpdated", role);
+            return "editRole";
+        } else {
+            return "error";
+        }
     }
 
-    // Modifier un rôle
     @PostMapping("/updateRole")
-    public String updateRole(
-            @RequestParam(name = "id") Long id,
-            @RequestParam(name = "name") String name) {
-        Role role = roleService.getRoleById(id)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
-        role.setName(name);
-        roleService.createRole(role);
+    public String updateRole(@Valid Role role, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "editRole";
+        }
+        roleService.updateRole(role);
         return "redirect:/roles";
     }
 
-    // Supprimer un rôle
     @GetMapping("/deleteRole")
     public String deleteRole(@RequestParam(name = "id") Long id) {
-        roleService.deleteRole(id);
-        return "redirect:/roles";
-    }
-
-    // Formulaire pour créer un rôle
-    @GetMapping("/createRole")
-    public String createRoleForm(Model model) {
-        model.addAttribute("role", new Role());
-        return "createRole";
-    }
-
-    // Formulaire pour modifier un rôle
-    @GetMapping("/editRole")
-    public String editRoleForm(
-            Model model,
-            @RequestParam(name = "id") Long id) {
-        Role role = roleService.getRoleById(id)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
-        model.addAttribute("roleToBeUpdated", role);
-        return "editRole";
+        if (roleService.deleteRole(id)) {
+            return "redirect:/roles";
+        } else {
+            return "error";
+        }
     }
 }

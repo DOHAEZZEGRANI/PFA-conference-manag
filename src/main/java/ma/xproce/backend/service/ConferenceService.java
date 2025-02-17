@@ -1,12 +1,14 @@
 package ma.xproce.backend.service;
 
 import ma.xproce.backend.Dao.entities.Conference;
+import ma.xproce.backend.Dao.entities.Role;
 import ma.xproce.backend.Dao.repositories.ConferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +40,8 @@ public class ConferenceService {
             return true;
         }
         return false;
+    }
+    public List<Conference> getAllConferences() {
+        return conferenceRepository.findAll();
     }
 }

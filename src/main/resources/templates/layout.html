@@ -77,6 +77,12 @@
                     <a class="nav-link" href="/createArticle">Soumettre un Article</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/roles">Roles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="userList">Utilisateur</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#">Déconnexion</a>
                 </li>
             </ul>
@@ -105,12 +111,12 @@
                     <strong>Fichier:</strong> <span th:text="${article.filePath}"></span><br/>
                     <strong>Soumission:</strong> <span th:text="${article.submissionDate}"></span><br/>
                     <strong>Statut:</strong> <span th:text="${article.status}"></span>
+                    <strong>Researcher:</strong> <span th:text="${article.researcher != null ? article.researcher.name : 'No researcher assigned'}"></span><br/>
                 </p>
                 <div class="d-flex justify-content-between">
                     <a th:href="@{detailsArticle(id=${article.id})}" class="btn btn-custom">Voir Détails</a>
-                    <a th:href="@{editArticle(id=${article.id})}" class="btn btn-custom">Modifier</a>
-                    <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');" th:href="@{delete(id=${article.id})}" class="btn btn-custom">Supprimer</a>
-                </div>
+                    <a th:href="@{affecter(id=${article.id})}" class="btn btn-custom">Affecter reviewer</a>
+                    </div>
             </div>
         </div>
     </div>

@@ -104,7 +104,7 @@
                     <div class="mb-3">
                         <label for="conference" class="form-label">Conférence :</label>
                         <select class="form-control w-50" id="conference" th:field="*{conference}">
-                            <option th:each="conference : ${conferences}" th:value="${conference.id}" th:text="${conference.name}"></option>
+                            <option th:each="conference : ${conferences}" th:value="${conference.id}" th:text="${conference.title}"></option>
                         </select>
                         <span class="text-danger" th:if="${#fields.hasErrors('conference')}" th:errors="*{conference}"></span>
                     </div>

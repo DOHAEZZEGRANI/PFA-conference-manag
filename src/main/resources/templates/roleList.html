@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Utilisateurs</title>
+    <title>Liste des Rôles</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
@@ -15,7 +15,6 @@
         body {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
@@ -23,50 +22,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-        }
-
-        table {
-            width: 80%;
-            background: rgba(0, 0, 0, 0.7);
             color: white;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background: #a1ee93;
-            color: black;
-        }
-
-        tr:hover {
-            background: rgba(57, 255, 20, 0.5);
-        }
-
-        .button {
-            background: #090909;
-            color: #fff;
-            text-decoration: none;
-            text-transform: uppercase;
-            border: none;
-            letter-spacing: 0.1rem;
-            font-size: 1rem;
-            padding: 1rem 3rem;
-            transition: 0.2s;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .button:hover {
-            letter-spacing: 0.2rem;
-            padding: 1.1rem 3.1rem;
-            background: var(--clr);
-            color: #000000;
-            animation: box 3s infinite;
         }
 
         nav {
@@ -104,50 +60,89 @@
         nav ul li a:hover {
             color: #4a7036;
         }
+
+
+        table {
+            width: 80%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 80px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #aee5a4;
+            color: black;
+        }
+
+        tr:hover {
+            background: rgba(57, 255, 20, 0.35);
+        }
+
+        .button {
+            position: relative;
+            background: #090909;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: none;
+            letter-spacing: 0.1rem;
+            font-size: 1rem;
+            padding: 1rem 3rem;
+            transition: 0.2s;
+            display: inline-block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            letter-spacing: 0.2rem;
+            padding: 1.1rem 3.1rem;
+            background: var(--clr);
+            color: #000000;
+        }
     </style>
 </head>
 <body>
-
-<!-- Navigation Bar -->
 <nav>
     <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo">
     <ul>
         <li><a href="/accueil">Accueil</a></li>
         <li><a href="/conferenceIndex">Conférences</a></li>
         <li><a href="/createArticle">Soumettre un Article</a></li>
-        <li class="nav-item">
-            <a class="nav-link" href="/roles">Roles</a>
-        </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="userList">Utilisateur</a>
+        </li>
         <li><a href="#">Déconnexion</a></li>
     </ul>
 </nav>
 
-<h1 class="text-white text-2xl font-bold mt-20">Liste des Utilisateurs</h1>
+<h1 class="text-white text-2xl font-bold">Liste des Rôles</h1>
 <table>
     <thead>
     <tr>
         <th>ID</th>
-        <th>Nom</th>
-        <th>Email</th>
-        <th>Rôle</th>
-        <th>Action</th>
+        <th>Nom du Rôle</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.email}"></td>
-        <td th:text="${user.role != null ? user.role.name : 'Rôle non défini'}"></td>
+    <tr th:each="role : ${roles}">
+        <td th:text="${role.id}"></td>
+        <td th:text="${role.name}"></td>
         <td>
-            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce user ?');" th:href="@{/deleteUser(id=${user.id})}" class="text-red-500">Supprimer</a>
+            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ROLE ?');" th:href="@{/deleteRole(id=${role.id})}" class="text-red-500">Supprimer</a>
         </td>
     </tr>
     </tbody>
 </table>
-
-<a href="/createUser" class="button" style="--clr:#abc2a7"><span>Creer un utilisateur</span></a>
-
+<a href="/createRole" class="button" style="--clr:#192117"><span>Créer un Rôle</span><i></i></a>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="utf-8"/>
-    <title>Créer un utilisateur</title>
+    <title>Créer un rôle</title>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -58,34 +58,13 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title text-center mb-4">Créer un nouvel utilisateur</h1>
-                <form th:action="@{/createUser}" th:object="${user}" method="post">
+                <h1 class="card-title text-center mb-4">Créer un nouveau rôle</h1>
+                <form th:action="@{/createRole}" th:object="${role}" method="post">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nom :</label>
-                        <input type="text" class="form-control w-50" id="name" th:field="*{name}">
+                        <label for="name" class="form-label">Nom du rôle :</label>
+                        <input type="text" class="form-control w-50" id="name" th:field="*{name}" required>
                         <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email :</label>
-                        <input type="email" class="form-control w-50" id="email" th:field="*{email}">
-                        <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Mot de passe :</label>
-                        <input type="password" class="form-control w-50" id="password" th:field="*{password}">
-                        <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Rôle :</label>
-                        <select class="form-control w-50" id="role" th:field="*{role}">
-                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
-                        </select>
-                        <span class="text-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
-                    </div>
-
                     <button type="submit" class="btn btn-primary form-control w-50">Créer</button>
                 </form>
             </div>
