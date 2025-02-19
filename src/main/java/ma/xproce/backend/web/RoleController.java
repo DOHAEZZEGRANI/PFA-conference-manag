@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import ma.xproce.backend.Dao.entities.Role;
 import ma.xproce.backend.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@SpringBootApplication
+
 public class RoleController {
 
     @Autowired
@@ -69,11 +72,17 @@ public class RoleController {
     }
 
     @GetMapping("/deleteRole")
-    public String deleteRole(@RequestParam(name = "id") Long id) {
-        if (roleService.deleteRole(id)) {
-            return "redirect:/roles";
-        } else {
-            return "error";
+    public String deleteRole(@RequestParam(name = "id") Long id, Model model) {
+        try {
+            if (roleService.deleteRole(id)) {
+                return "redirect:/roles";
+            } else {
+                model.addAttribute("errorMessage", "Impossible de supprimer ce rôle.");
+                return "roleList"; // On reste sur la page des rôles avec le message d'erreur
+            }
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Ce rôle ne peut pas être supprimé car il est utilisé par des utilisateurs.");
+            return "roleList"; // On reste sur la liste des rôles avec l'erreur affichée
         }
     }
 }

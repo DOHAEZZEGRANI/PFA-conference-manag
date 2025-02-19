@@ -8,77 +8,128 @@
     <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-            padding-top: 20px;
-        }
-
-        .container {
-            padding: 20px;
-        }
-        .hero-section {
-            background-color: #091002;
-            color: #bae1a5;
-            padding: 50px 0;
-            text-align: center;
-        }
-        li{
-            color: #565d48;
-        }p{
-            color: #ffffff;
-        }
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .feature-title {
-            font-size: 1.25rem;
-            color: #163f0e;
-            margin-top: 10px;
-        }
-        .feature-description {
-            font-size: 1rem;
-            color: #6c757d;
-        }
-        .btn-primary {
-            background-color: brown;
-            border-color: brown;
-        }
-
-        .btn-primary:hover {
-            background-color: brown;
-            border-color: brown;
-        }
-        .navbar {
-            margin-bottom: 20px;
-        }
-        .presentation-section {
-            margin-top: 50px;
-        }
-        .presentation-section h2 {
-            color: #565d48;
-        }
-        .presentation-section p {
-            font-size: 1.1rem;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-        body {
             background-image: url('https://wallpapercave.com/wp/wp2888506.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
         }
+
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            margin-left: 20px;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #ffd700 !important;
+        }
+
+        .hero-section {
+            background: rgba(9, 16, 2, 0.7);
+            color: #fff;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 5px solid #b2ee7b;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            font-style: italic;
+        }
+
+        .presentation-section {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 50px 0;
+            border-radius: 15px;
+            color: #fff;
+        }
+
+        .presentation-section h2 {
+            color: #b2ee7b;
+            font-size: 2rem;
+        }
+
+        .presentation-section p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+        }
+
+        .btn-primary {
+            background-color: #7a4b2f;
+            border-color: #7a4b2f;
+        }
+
+        .btn-primary:hover {
+            background-color: #d57a1b;
+            border-color: #d57a1b;
+        }
+
+        .img-fluid {
+            border-radius: 15px;
+        }
+
+        .presentation-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .presentation-section ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark ">
+<nav class="navbar navbar-expand-lg ">
     <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo" width="80" height="80" class="d-inline-block align-text-top">
-
     <div class="container-fluid">
         <a class="navbar-brand" href="#">DU-FU</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,44 +137,31 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/indexpage">Voir les Articles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/conferenceIndex">Voir les Conférences</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/roles">Roles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="userList">Utilisateur</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Connection</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="/indexpage">Voir les Articles</a></li>
+                <li class="nav-item"><a class="nav-link" href="/conferenceIndex">Voir les Conférences</a></li>
+                <li class="nav-item"><a class="nav-link" href="/roles">Roles</a></li>
+                <li class="nav-item"><a class="nav-link" href="userList">Utilisateur</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Connection</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
+<!-- Hero Section -->
 <div class="hero-section">
     <h1>Bienvenue sur le site de gestion des conférences</h1>
-    <p class="lead">Découvrez toutes les fonctionnalités pour gérer vos conférences et articles.</p>
+    <p>Découvrez toutes les fonctionnalités pour gérer vos conférences et articles.</p>
 </div>
 
 <!-- Presentation Section -->
-<div class="container mt-5 presentation-section row">
+<div class="container presentation-section row">
     <div class="col-md-6">
-        <img src="https://www.echosciences-grenoble.fr/uploads/article/image/attachment/1005167330/xl_articles.png" alt="Description de l'image" class="img-fluid " style="width: 80%;">
+        <img src="https://www.echosciences-grenoble.fr/uploads/article/image/attachment/1005167330/xl_articles.png" alt="Image de présentation" class="img-fluid">
     </div>
     <div class="col-md-6">
         <h2>Présentation du Projet</h2>
         <p>
             Ce projet vise à fournir une plateforme en ligne complète pour la gestion des conférences scientifiques. La plateforme permet aux organisateurs de conférences, aux chercheurs et aux évaluateurs de collaborer efficacement à travers un système fluide de soumissions, d'évaluations et de suivi des conférences.
-        </p>
-        <p>
-            Les utilisateurs de la plateforme sont divisés en plusieurs rôles, chacun ayant des responsabilités spécifiques :
         </p>
         <ul>
             <li><strong>Administrateur :</strong> Gère l'accès global et l'administration du système.</li>
@@ -131,31 +169,22 @@
             <li><strong>Reviewer :</strong> Évalue les articles soumis selon des critères précis.</li>
             <li><strong>Chercheur :</strong> Soumet des articles et suit le statut de ses soumissions.</li>
         </ul>
-
     </div>
 </div>
-<p>
-    La plateforme offre une interface utilisateur conviviale, permettant de soumettre des articles, d'assigner des évaluateurs, de consulter des commentaires et de gérer toutes les étapes du processus de soumission et de révision des articles.
-</p>
 
-<p>
-    Cette plateforme est conçue pour répondre aux besoins des chercheurs en quête d'une solution robuste et facile à utiliser pour le dépôt et l'évaluation de leurs travaux scientifiques.
-</p>
-<!-- Add the new image next to the last paragraph -->
 <div class="container mt-5 row">
     <div class="col-md-12">
-
         <div class="d-flex justify-content-between align-items-center">
-
             <p class="text-white" style="flex-grow: 1;">
                 Cette plateforme est conçue pour répondre aux besoins des chercheurs en quête d'une solution robuste et facile à utiliser pour le dépôt et l'évaluation de leurs travaux scientifiques.
-                Sessions en direct, présentations vidéo préenregistrées, salles de répartition, chat.
                 Sessions en direct, présentations vidéo préenregistrées, salles de répartition, chat.
             </p>
             <img src="https://img.freepik.com/free-photo/room-used-official-event_23-2151054262.jpg" alt="Room for an official event" class="img-fluid" style="max-width: 50%;">
         </div>
     </div>
 </div>
-
+<footer style="width: 100%; background: rgba(0, 0, 0, 0.8); color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; left: 0;">
+    <p>&copy; 2025 DU-FU. Tous droits réservés.</p>
+</footer>
 </body>
 </html>

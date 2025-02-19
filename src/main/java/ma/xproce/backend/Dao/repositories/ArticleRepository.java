@@ -11,4 +11,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByConferenceId(Long conferenceId); // Trouver tous les articles pour une conférence donnée
     List<Article> findByStatus(ArticleStatus status); // Trouver les articles par statut
     List<Article> findByResearcherId(Long researcherId); // Trouver tous les articles soumis par un chercheur
-    Page<Article> findByTitleContainingIgnoreCase(String keyword, Pageable pageable);}
+    Page<Article> findByTitleContainingIgnoreCase(String keyword, Pageable pageable);
+}

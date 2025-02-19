@@ -41,12 +41,10 @@ public class ConferenceController {
     public String conferenceDetails(Model model,
                                     @RequestParam(name = "id") Long id) {
         Conference conference = conferenceService.getConferenceById(id);
-        if (conference != null) {
+
             model.addAttribute("ConferenceWithDetails", conference);
             return "/conferenceDetails";  // Afficher les détails de la conférence
-        } else {
-            return "error";  // Afficher une erreur si la conférence n'existe pas
-        }
+
     }
 
     // Supprimer une conférence
@@ -98,7 +96,7 @@ public class ConferenceController {
             return "/createConference";  // Retourner le formulaire avec l'objet en cas d'erreur
         }
         conferenceService.createConference(conference);
-        return "redirect:/indexpage";
+        return "redirect:/conferenceIndex";
     }
 
     // Liste des conférences avec pagination et recherche

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Évaluer un Article</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://wallpapercave.com/wp/wp2888506.jpg'); /* Définir le même fond d'écran */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            color: #ffffff; /* Texte blanc pour contraster avec l'arrière-plan */
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour le formulaire */
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #ffd700; /* Couleur dorée pour le titre */
+        }
+
+        .alert {
+            background-color: rgba(255, 99, 71, 0.8); /* Couleur rouge transparent pour les messages d'erreur */
+        }
+
+        .btn-primary {
+            background-color: #7a4b2f;
+            border-color: #7a4b2f;
+        }
+
+        .btn-primary:hover {
+            background-color: #d57a1b;
+            border-color: #d57a1b;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Évaluer un Article</h2>
+
+    <!-- Message d'erreur si aucun évaluateur n'est disponible -->
+    <div th:if="${error}" class="alert alert-danger">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form action="/evaluateArticle" method="post">
+        <input type="hidden" name="articleId" th:value="${articleId}" />
+
+        <div class="mb-3">
+            <label for="reviewerId" class="form-label">Sélectionner un évaluateur :</label>
+            <select class="form-select" id="reviewerId" name="reviewerId" required>
+                <option value="">-- Sélectionner un utilisateur --</option>
+                <option th:each="user : ${users}"
+                        th:value="${user.id}"
+                        th:text="${user.name}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="score" class="form-label">Score :</label>
+            <input type="number" step="0.1" min="0" max="10" class="form-control" id="score" name="score" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="comments" class="form-label">Commentaires :</label>
+            <textarea class="form-control" id="comments" name="comments" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Soumettre l'évaluation</button>
+    </form>
+
+    <a href="/indexpage" class="btn btn-secondary mt-3">Retour</a>
+</div>
+
+</body>
+</html>

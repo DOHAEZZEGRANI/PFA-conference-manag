@@ -6,50 +6,27 @@
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
     <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
-        .card {
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            background-image: url('https://wallpapercave.com/wp/wp2888506.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-        }
         body {
-            background-color: #f8f9fa;
+            background-image: url('https://wallpapercave.com/wp/wp2888506.jpg'); /* Assurez-vous d'ajouter l'image de fond ici */
+            background-size: cover; /* Pour que l'image couvre tout l'écran */
+            background-position: center; /* Pour centrer l'image */
+            height: 100vh; /* Pour que le body occupe toute la hauteur de l'écran */
             font-family: 'Arial', sans-serif;
-            padding-top: 20px;
+            margin: 0; /* Pour éviter les marges par défaut du body */
         }
 
         .container {
             padding: 20px;
+            position: relative; /* Pour pouvoir placer d'autres éléments à l'intérieur sans affecter le background */
+            z-index: 2; /* Pour s'assurer que la container est au-dessus du fond */
         }
 
-        h1 {
-            color: #343a40;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .card-body {
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
+        .card {
             border-radius: 10px;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            color: #ffffff;
-        }
-
-        .btn-primary {
-            background-color: brown;
-            border-color: brown;
-        }
-
-        .btn-primary:hover {
-            background-color: brown;
-            border-color: brown;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Arrière-plan semi-transparent pour améliorer la lisibilité */
+            color: white;
         }
     </style>
 </head>

@@ -4,89 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Conférences</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
-            padding-top: 20px;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        h1 {
-            color: #ffffff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .cardh {
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            background-size: cover;
-            background-position: center;
-            color: white;
-        }
-
-        .card-body {
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            color: #ffffff;
-        }
-
-        .btn-primary {
-            background-color: brown;
-            border-color: brown;
-        }
-
-        .btn-primary:hover {
-            background-color: #a52a2a;
-            border-color: #a52a2a;
-        }
-
-        .btn-outline-primary {
-            color: #fff;
-            border-color: #163f0e;
-            background-color: #163f0e;
-        }
-
-        .btn-outline-primary:hover {
-            color: #fff;
-            background-color: brown;
-            border-color: brown;
-        }
-
-        .pagination .page-link {
-            color: brown;
-        }
-
-        .pagination .page-link.active {
-            background-color: brown;
-            border-color: brown;
-            color: white;
-        }
         body {
             background-image: url('https://wallpapercave.com/wp/wp2888506.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .search-bar input {
+            border-radius: 25px;
+        }
+
+        .cardh {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgb(0, 0, 0);
+            transition: transform 0.3s;
+            color: #fff;
+        }
+
+        .cardh:hover {
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #63b269;
+        }
+
+        .card-text strong {
+            color: #ccfcc7;
+        }
+
+        .card-text span {
+            color: #f5f5f5;
+        }
+
+        .btn-custom {
+            background-color: #163f0e;
+            color: #ffffff;
+            border-radius: 25px;
+        }
+
+        .btn-custom:hover {
+            background-color: #e74c3c;
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark" >
+<nav class="navbar navbar-expand-lg navbar-dark">
     <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo" width="80" height="80" class="d-inline-block align-text-top">
-
     <div class="container-fluid">
         <a class="navbar-brand" href="#">DU-FU</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,73 +94,53 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="accueil">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/indexpage">Articles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/createConference">Ajouter une Conférence</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/roles">Roles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="userList">Utilisateur</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Déconnexion</a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" href="/accueil">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/indexpage">Articles</a></li>
+                <li class="nav-item"><a class="nav-link" href="/createConference">Ajouter une Conférence</a></li>
+                <li class="nav-item"><a class="nav-link" href="/roles">Roles</a></li>
+                <li class="nav-item"><a class="nav-link" href="userList">Utilisateur</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Déconnexion</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
 <div class="container">
-    <h1>Gestion des Conférences</h1>
-
-    <!-- Barre de recherche -->
-    <div class="d-flex justify-content-center mb-4">
+    <h1 class="text-center" style="padding: 20px">Gestion des Conférences</h1>
+    <div class="d-flex justify-content-center search-bar mb-4">
         <form method="get" th:action="@{conferenceIndex}" class="d-flex">
             <input type="text" name="search" class="form-control me-2" th:value="${keyword}" placeholder="Rechercher une conférence"/>
-            <button class="btn btn-primary" type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>
-            </button>
+            <button class="btn btn-custom" type="submit">🔍</button>
         </form>
     </div>
-
-    <!-- Liste des conférences -->
     <div class="row">
         <div class="col-md-4" th:each="conference : ${listConference}">
             <div class="cardh">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${conference.title}"></h5>
-                    <p class="card-text">
-                        <strong>Description:</strong> <span th:text="${conference.description}"></span><br/>
-                        <strong>Date de Soumission (Début):</strong> <span th:text="${conference.submissionStartDate}"></span><br/>
-                        <strong>Date de Soumission (Fin):</strong> <span th:text="${conference.submissionEndDate}"></span><br/>
-                        <strong>Date de Conférence:</strong> <span th:text="${conference.conferenceDate}"></span><br/>
-                        <strong>Statut:</strong> <span th:text="${conference.status}"></span>
-                    </p>
-                    <a th:href="@{detailsConference(id=${conference.id})}" class="btn btn-outline-primary">Voir Détails</a>
+                <h5 class="card-title" th:text="${conference.title}"></h5>
+                <p class="card-text">
+                    <strong>Description:</strong> <span th:text="${conference.description}"></span><br/>
+                    <strong>Date de Soumission (Début):</strong> <span th:text="${conference.submissionStartDate}"></span><br/>
+                    <strong>Date de Soumission (Fin):</strong> <span th:text="${conference.submissionEndDate}"></span><br/>
+                    <strong>Date de Conférence:</strong> <span th:text="${conference.conferenceDate}"></span><br/>
+                    <strong>Statut:</strong> <span th:text="${conference.status}"></span>
+                </p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a th:href="@{conferenceDetails(id=${conference.id})}" class="btn btn-custom">Voir Détails</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Pagination -->
     <div class="d-flex justify-content-center mt-4">
         <ul class="pagination">
             <li th:each="i : ${#numbers.sequence(0, pages.length - 1)}" th:classappend="${i == page} ? 'active'">
-                <a th:href="@{/conferencePage(page=${i}, search=${keyword})}" class="page-link" th:text="${i + 1}"></a>
+                <a th:href="@{/conferenceIndex(page=${i}, search=${keyword})}" class="page-link" th:text="${i + 1}"></a>
             </li>
         </ul>
     </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<footer>
+    <footer style="width: 100%; background: rgba(0, 0, 0, 0.8); color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; left: 0;">
+        <p>&copy; 2025 DU-FU. Tous droits réservés.</p>
+    </footer>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.com" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" lang="en">
 <head>
     <meta charset="utf-8"/>
     <title>Détails de l'article</title>
@@ -59,25 +59,86 @@
         .center-button {
             display: flex;
             justify-content: center;
+            gap: 10px;
+        }
+
+        /* Style pour la section des évaluations */
+        .evaluation-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .evaluation-container h3 {
+            text-align: center;
+            color: #f3f3f3;
+        }
+
+        .evaluation-item {
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .evaluation-item:last-child {
+            border-bottom: none;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            border: none;
+            padding: 5px 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .delete-btn:hover {
+            background-color: #bb2d3b;
         }
     </style>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="container">
-        <h2>Article Details</h2>
-        <p>ID: <span th:text="${ArticleWithDetails.id}"></span></p>
-        <p>Title: <span th:text="${ArticleWithDetails.title}"></span></p>
-        <p>Abstract: <span th:text="${ArticleWithDetails.abstractText}"></span></p>
-        <p>Status: <span th:text="${ArticleWithDetails.status}"></span></p>
-        <p>Submission Date: <span th:text="${#temporals.format(ArticleWithDetails.submissionDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+        <h2>Détails de l'Article</h2>
+        <p><strong>ID:</strong> <span th:text="${ArticleWithDetails.id}"></span></p>
+        <p><strong>Titre:</strong> <span th:text="${ArticleWithDetails.title}"></span></p>
+        <p><strong>Résumé:</strong> <span th:text="${ArticleWithDetails.abstractText}"></span></p>
+        <p><strong>Fichier:</strong>
+        <a th:href="@{${ArticleWithDetails.filePath}}" th:text="${ArticleWithDetails.filePath}" target="_blank"></a><br/></p>
 
+        <p><strong>Statut:</strong> <span th:text="${ArticleWithDetails.status}"></span></p>
+        <p><strong>Date de soumission:</strong> <span th:text="${#temporals.format(ArticleWithDetails.submissionDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+
+        <!-- Section des évaluations -->
+        <div class="evaluation-container">
+            <h3>Évaluations</h3>
+            <div th:if="${ArticleWithDetails.evaluations.isEmpty()}">
+                <p>Aucune évaluation disponible.</p>
+            </div>
+            <div th:each="evaluation : ${ArticleWithDetails.evaluations}" class="evaluation-item">
+                <div>
+                    <p><strong>Évaluateur:</strong> <span th:text="${evaluation.reviewer.name}"></span></p>
+                    <p><strong>Score:</strong> <span th:text="${evaluation.score}"></span></p>
+                    <p><strong>Commentaires:</strong> <span th:text="${evaluation.comments}"></span></p>
+                </div>
+                <a th:href="@{/deleteEvaluation(id=${evaluation.id})}"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette évaluation ?');"
+                   class="delete-btn">Supprimer</a>
+            </div>
+        </div>
+
+        <!-- Boutons -->
         <div class="center-button">
-            <a class="btn btn-primary mt-3" th:href="@{/indexpage}">Back to List</a>
-            <a th:href="@{editArticle(id=${ArticleWithDetails.id})}" class="btn btn-custom">Modifier</a>
-
-            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');" th:href="@{delete(id=${ArticleWithDetails.id})}" class="btn btn-custom">Supprimer</a>
-
+            <a class="btn btn-primary mt-3" th:href="@{/indexpage}">Retour</a>
+            <a th:href="@{/editArticle(id=${ArticleWithDetails.id})}" class="btn btn-danger mt-3">Modifier</a>
+            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');"
+               th:href="@{/delete(id=${ArticleWithDetails.id})}"
+               class="btn btn-danger mt-3">Supprimer</a>
         </div>
     </div>
 </div>

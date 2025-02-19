@@ -17,9 +17,7 @@
             color: #ffffff;
         }
 
-
         .container {
-
             padding: 20px;
         }
 
@@ -34,93 +32,111 @@
             padding: 20px;
             box-shadow: 0 0 10px rgb(0, 0, 0);
             transition: transform 0.3s;
+            color: #fff;
         }
 
         .cardh:hover {
             transform: scale(1.05);
         }
 
+        .card-text strong {
+            color: #ccfcc7; /* Couleur cyan pour les titres des attributs */
+        }
+
+
+        .card-text span {
+            color: #f5f5f5; /* Couleur claire pour les valeurs */
+        }
+
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+            color: #63b269;
+        }
+
+        .card-text {
+            text-align: left;
+        }
+
         .btn-custom {
             background-color: #163f0e;
-            color: #fff;
+            color: #ffffff;
             border-radius: 25px;
         }
 
         .btn-custom:hover {
-            background-color: brown;
+            background-color: #e74c3c;
+        }
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-<!-- Navigation Bar -->
-<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo" width="80" height="80" class="d-inline-block align-text-top">
-
     <div class="container-fluid">
         <a class="navbar-brand" href="#">DU-FU</a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/accueil">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/conferenceIndex">Conférences</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/createArticle">Soumettre un Article</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/roles">Roles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="userList">Utilisateur</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Déconnexion</a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" href="/accueil">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link" href="/conferenceIndex">Conférences</a></li>
+                <li class="nav-item"><a class="nav-link" href="/createArticle">Soumettre un Article</a></li>
+                <li class="nav-item"><a class="nav-link" href="/roles">Roles</a></li>
+                <li class="nav-item"><a class="nav-link" href="userList">Utilisateur</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Déconnexion</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-
 <div class="container">
-
-    <h1 class="text-center" STYLE="padding: 20px">Gestion des Articles</h1>
-
+    <h1 class="text-center" style="padding: 20px">Gestion des Articles</h1>
     <div class="d-flex justify-content-center search-bar mb-4">
         <form method="get" th:action="@{indexpage}" class="d-flex">
             <input type="text" name="search" class="form-control me-2" th:value="${keyword}" placeholder="Rechercher un article"/>
             <button class="btn btn-custom" type="submit">🔍</button>
         </form>
     </div>
-
     <div class="row">
         <div class="col-md-4" th:each="article: ${listArticle}">
             <div class="cardh">
                 <h5 class="card-title" th:text="${article.title}"></h5>
                 <p class="card-text">
                     <strong>Résumé:</strong> <span th:text="${article.abstractText}"></span><br/>
-                    <strong>Fichier:</strong> <span th:text="${article.filePath}"></span><br/>
+                    <strong>Fichier:</strong>
+                    <a th:href="@{${article.filePath}}" th:text="${article.filePath}" target="_blank"></a><br/>
                     <strong>Soumission:</strong> <span th:text="${article.submissionDate}"></span><br/>
-                    <strong>Statut:</strong> <span th:text="${article.status}"></span>
-                    <strong>Researcher:</strong> <span th:text="${article.researcher != null ? article.researcher.name : 'No researcher assigned'}"></span><br/>
+                    <strong>Statut:</strong> <span th:text="${article.status}"></span><br/>
+                    <strong>Researcher:</strong> <span th:text="${article.researcher != null ? article.researcher.name : 'No researcher assigned'}"></span>
                 </p>
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-center gap-3">
                     <a th:href="@{detailsArticle(id=${article.id})}" class="btn btn-custom">Voir Détails</a>
-                    <a th:href="@{affecter(id=${article.id})}" class="btn btn-custom">Affecter reviewer</a>
-                    </div>
+                    <a th:href="@{evaluateArticle(id=${article.id})}" class="btn btn-custom">Évaluer</a>
+                </div>
             </div>
         </div>
     </div>
-
     <div class="d-flex justify-content-center mt-4">
         <ul class="pagination">
             <li th:each="p, stat: ${pages}" class="page-item" th:classappend="${stat.index == page} ? 'active'">
@@ -129,5 +145,8 @@
         </ul>
     </div>
 </div>
+<footer style="width: 100%; background: rgba(0, 0, 0, 0.8); color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; left: 0;">
+    <p>&copy; 2025 DU-FU. Tous droits réservés.</p>
+</footer>
 </body>
 </html>

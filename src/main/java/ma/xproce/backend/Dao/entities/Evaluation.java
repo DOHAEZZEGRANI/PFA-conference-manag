@@ -1,7 +1,7 @@
 package ma.xproce.backend.Dao.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+        import lombok.*;
 
 
 @Entity

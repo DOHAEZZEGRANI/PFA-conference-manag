@@ -125,6 +125,10 @@
 </nav>
 
 <h1 class="text-white text-2xl font-bold">Liste des Rôles</h1>
+<div th:if="${errorMessage}" class="bg-red-500 text-white p-3 rounded-md w-3/4 text-center mb-4">
+    <p th:text="${errorMessage}"></p>
+</div>
+
 <table>
     <thead>
     <tr>
@@ -141,8 +145,12 @@
             <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ROLE ?');" th:href="@{/deleteRole(id=${role.id})}" class="text-red-500">Supprimer</a>
         </td>
     </tr>
+
     </tbody>
 </table>
 <a href="/createRole" class="button" style="--clr:#192117"><span>Créer un Rôle</span><i></i></a>
+<footer style="width: 100%; background: rgba(0, 0, 0, 0.8); color: white; text-align: center; padding: 10px; position: fixed; bottom: 0; left: 0;">
+    <p>&copy; 2025 DU-FU. Tous droits réservés.</p>
+</footer>
 </body>
 </html>

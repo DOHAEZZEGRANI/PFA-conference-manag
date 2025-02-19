@@ -1,13 +1,11 @@
 package ma.xproce.backend.web;
 
 import jakarta.validation.Valid;
-import ma.xproce.backend.Dao.entities.Article;
-import ma.xproce.backend.Dao.entities.ArticleStatus;
+import ma.xproce.backend.Dao.entities.*;
 
-import ma.xproce.backend.Dao.entities.Conference;
-import ma.xproce.backend.Dao.entities.User;
 import ma.xproce.backend.service.ArticleService;
 import ma.xproce.backend.service.ConferenceService;
+import ma.xproce.backend.service.EvaluationService;
 import ma.xproce.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @SpringBootApplication
@@ -30,7 +29,8 @@ public class ArticleController {
     private UserService userService;
  @Autowired
     private ConferenceService conferenceService;
-
+    @Autowired
+    private EvaluationService evaluationService;
     @PostMapping("/saveArticle")
     public String ajouterArticle(Model model,
                                @Valid Article article ,
@@ -207,6 +207,7 @@ public class ArticleController {
         Article article = articleService.getArticleById(id);
         List<User> users = userService.getAllUsers(); // Fetch all users
 
+
         if (article != null) {
             model.addAttribute("ArticleToBeUpdated", article);
             model.addAttribute("users", users);
@@ -218,4 +219,81 @@ public class ArticleController {
         }
     }
 
-}
+
+
+
+
+
+        @GetMapping("/evaluateArticle")
+        public String showEvaluationForm(Model model, @RequestParam(name = "id") Long id) {
+            // Récupérer l'article
+            Article article = articleService.getArticleById(id);
+            if (article == null) {
+                model.addAttribute("error", "Article introuvable.");
+                return "evaluateArticle";
+            }
+            List<User> reviewer = userService.getAllUsers();
+
+
+            // Log pour le débogage
+            System.out.println("Nombre de reviewers trouvés : " + reviewer.size());
+            for (User user : reviewer) {
+                System.out.println("Reviewer: ID=" + user.getId() + ", Nom=" + user.getName()+ ", Nom=" + user.getRole().getName());
+            }
+
+            // Récupérer les reviewers
+            List<User> reviewers = userService.getAllUsers().stream()
+                    .filter(user -> "REVIEWER".equals(user.getRole().getName()))
+                    .collect(Collectors.toList());
+
+            // Log pour le débogage
+            System.out.println("Nombre de reviewers trouvés : " + reviewers.size());
+            for (User user : reviewers) {
+                System.out.println("Reviewer: ID=" + user.getId() + ", Nom=" + user.getName());
+            }
+
+            // Gérer le cas où aucun reviewer n'est disponible
+            if (reviewers.isEmpty()) {
+                model.addAttribute("error", "Aucun évaluateur disponible.");
+            }
+
+            // Ajouter les attributs au modèle
+            model.addAttribute("users", reviewers);
+            model.addAttribute("articleId", article.getId());
+
+            return "evaluations";  // Correspond au nom du fichier HTML
+        }
+
+        @PostMapping("/evaluateArticle")
+        public String evaluateArticle(@RequestParam(name = "articleId") Long articleId,
+                                      @RequestParam(name = "reviewerId", required = false) Long reviewerId,
+                                      @RequestParam(name = "score") Float score,
+                                      @RequestParam(name = "comments") String comments) {
+
+            // Vérifier que l'article existe
+            Article article = articleService.getArticleById(articleId);
+            if (article == null) {
+                return "error";  // Gérer le cas où l'article n'existe pas
+            }
+
+            // Vérifier que l'évaluateur existe et est bien un REVIEWER
+            User reviewer = userService.getUserById(reviewerId).orElse(null);
+            if (reviewer == null || !"REVIEWER".equals(reviewer.getRole().getName())) {
+                return "error";  // Gérer le cas où l'évaluateur est invalide
+            }
+
+            // Créer une nouvelle évaluation
+            Evaluation evaluation = new Evaluation();
+            evaluation.setScore(score);
+            evaluation.setComments(comments);
+            evaluation.setReviewer(reviewer);
+            evaluation.setArticle(article);
+
+            // Sauvegarder l'évaluation
+            evaluationService.createEvaluation(evaluation);
+
+            return "redirect:/indexpage";
+        }
+    }
+
+
