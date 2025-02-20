@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <title>Détails de la conférence</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
@@ -104,10 +106,10 @@
         </div>
 
         <div class="center-button">
-            <a class="btn btn-primary mt-3" th:href="@{/conferenceIndex}">Back to List</a>
-            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');"
+            <a class="btn btn-primary mt-3" th:href="@{/conferenceIndex}"><i class="fas fa-arrow-left"></i> Back to List</a>
+            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet conference ?');"
                th:href="@{/deleteConference(id=${ConferenceWithDetails.id})}"
-               class="btn btn-danger mt-3">Supprimer</a>
+               class="btn btn-danger mt-3"><i class="fas fa-trash"></i> Supprimer</a>
         </div>
     </div>
 </div>

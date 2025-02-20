@@ -1,5 +1,6 @@
 package ma.xproce.backend.service;
 
+import ma.xproce.backend.Dao.entities.Article;
 import ma.xproce.backend.Dao.entities.Evaluation;
 import ma.xproce.backend.Dao.repositories.EvaluationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class EvaluationService {
     public Page<Evaluation> searchEvaluations(String keyword, int page, int size) {
         return evaluationRepository.findByCommentsContainingIgnoreCase(keyword, PageRequest.of(page, size));
     }
+    public long getEvaluationCountByArticle(Article article) {
+        return evaluationRepository.countByArticle(article);
+    }
+
 
     public Evaluation getEvaluationById(Long id) {
         Optional<Evaluation> optionalEvaluation = evaluationRepository.findById(id);

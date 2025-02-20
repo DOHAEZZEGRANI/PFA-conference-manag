@@ -4,6 +4,8 @@
     <meta charset="utf-8"/>
     <title>Détails de l'article</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
@@ -99,6 +101,11 @@
         .delete-btn:hover {
             background-color: #bb2d3b;
         }
+
+        /* Style des étoiles */
+        .stars {
+            color: gold;
+        }
     </style>
 </head>
 <body>
@@ -108,7 +115,7 @@
         <p><strong>Titre:</strong> <span th:text="${ArticleWithDetails.title}"></span></p>
         <p><strong>Résumé:</strong> <span th:text="${ArticleWithDetails.abstractText}"></span></p>
         <p><strong>Fichier:</strong>
-        <a th:href="@{${ArticleWithDetails.filePath}}" th:text="${ArticleWithDetails.filePath}" target="_blank"></a><br/></p>
+            <a th:href="@{${ArticleWithDetails.filePath}}" th:text="${ArticleWithDetails.filePath}" target="_blank"></a><br/></p>
 
         <p><strong>Statut:</strong> <span th:text="${ArticleWithDetails.status}"></span></p>
         <p><strong>Date de soumission:</strong> <span th:text="${#temporals.format(ArticleWithDetails.submissionDate, 'yyyy-MM-dd HH:mm')}"></span></p>
@@ -122,7 +129,16 @@
             <div th:each="evaluation : ${ArticleWithDetails.evaluations}" class="evaluation-item">
                 <div>
                     <p><strong>Évaluateur:</strong> <span th:text="${evaluation.reviewer.name}"></span></p>
-                    <p><strong>Score:</strong> <span th:text="${evaluation.score}"></span></p>
+
+                    <!-- Affichage des étoiles basé sur le score -->
+                    <p><strong>Score:</strong>
+                        <span class="stars">
+                            <span th:each="i : ${#numbers.sequence(1, 5)}">
+                                <i th:classappend="${evaluation.score >= i ? 'fas fa-star' : 'far fa-star'}"></i>
+                            </span>
+                        </span>
+                    </p>
+
                     <p><strong>Commentaires:</strong> <span th:text="${evaluation.comments}"></span></p>
                 </div>
                 <a th:href="@{/deleteEvaluation(id=${evaluation.id})}"
@@ -133,11 +149,11 @@
 
         <!-- Boutons -->
         <div class="center-button">
-            <a class="btn btn-primary mt-3" th:href="@{/indexpage}">Retour</a>
-            <a th:href="@{/editArticle(id=${ArticleWithDetails.id})}" class="btn btn-danger mt-3">Modifier</a>
+            <a class="btn btn-primary mt-3" th:href="@{/indexpage}"><i class="fas fa-arrow-left"></i> Retour</a>
+            <a th:href="@{/editArticle(id=${ArticleWithDetails.id})}" class="btn btn-danger mt-3"> <i class="fas fa-edit"></i> Modifier</a>
             <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');"
                th:href="@{/delete(id=${ArticleWithDetails.id})}"
-               class="btn btn-danger mt-3">Supprimer</a>
+               class="btn btn-danger mt-3"><i class="fas fa-trash"></i> Supprimer</a>
         </div>
     </div>
 </div>

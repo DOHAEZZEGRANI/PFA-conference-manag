@@ -1,5 +1,6 @@
 package ma.xproce.backend.Dao.repositories;
 
+import ma.xproce.backend.Dao.entities.Article;
 import ma.xproce.backend.Dao.entities.Conference;
 import ma.xproce.backend.Dao.entities.Evaluation;
 import org.springframework.data.domain.Page;
@@ -15,4 +16,5 @@ public interface EvaluationRepository extends JpaRepository<Evaluation, Long> {
 
     // Rechercher les évaluations par ID de reviewer
     List<Evaluation> findByReviewerId(Long reviewerId);
+    long countByArticle(Article article);
     Page<Evaluation> findByCommentsContainingIgnoreCase(String keyword, Pageable pageable);}

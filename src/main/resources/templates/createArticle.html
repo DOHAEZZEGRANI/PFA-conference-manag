@@ -52,11 +52,11 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">Statut :</label>
                         <select class="form-control w-50" id="status" th:field="*{status}">
-                            <option th:each="status : ${T(ma.xproce.backend.Dao.entities.ArticleStatus).values()}"
-                                    th:value="${status}" th:text="${status}"></option>
+                            <option value="SUBMITTED" selected>SUBMITTED</option>
                         </select>
                         <span class="text-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></span>
                     </div>
+
 
                     <div class="mb-3">
                         <label for="submissionDate" class="form-label">Date de soumission :</label>

@@ -176,6 +176,11 @@ public class ArticleController {
                               @RequestParam(name = "search", defaultValue = "") String keyword) {
         Page<Article> articles = articleService.searchArticles(keyword, page, taille);
         model.addAttribute("listArticle", articles.getContent());
+        for (Article article : articles.getContent()) {
+            long evaluationCount = evaluationService.getEvaluationCountByArticle(article);
+            article.setEvaluationCount(evaluationCount); // Assuming a method to set this count
+        }
+
 
         int[] pages = new int[articles.getTotalPages()];
         model.addAttribute("pages", pages);

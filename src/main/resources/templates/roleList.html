@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <title>Liste des Rôles</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -113,9 +115,9 @@
 <nav>
     <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo">
     <ul>
-        <li><a href="/accueil">Accueil</a></li>
+        <li><a href="/accueil"><i class="fas fa-home"></i> Accueil</a></li>
         <li><a href="/conferenceIndex">Conférences</a></li>
-        <li><a href="/createArticle">Soumettre un Article</a></li>
+        <li class="nav-item"><a class="nav-link" href="/indexpage">Articles</a></li>
 
         <li class="nav-item">
             <a class="nav-link" href="userList">Utilisateur</a>
@@ -124,7 +126,7 @@
     </ul>
 </nav>
 
-<h1 class="text-white text-2xl font-bold">Liste des Rôles</h1>
+<h1 class="text-white text-2xl font-bold"><i class="fas fa-user-shield"></i> Liste des Rôles</h1>
 <div th:if="${errorMessage}" class="bg-red-500 text-white p-3 rounded-md w-3/4 text-center mb-4">
     <p th:text="${errorMessage}"></p>
 </div>
@@ -142,7 +144,7 @@
         <td th:text="${role.id}"></td>
         <td th:text="${role.name}"></td>
         <td>
-            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ROLE ?');" th:href="@{/deleteRole(id=${role.id})}" class="text-red-500">Supprimer</a>
+            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce ROLE ?');" th:href="@{/deleteRole(id=${role.id})}" class="text-red-500"><i class="fas fa-trash"></i> Supprimer</a>
         </td>
     </tr>
 

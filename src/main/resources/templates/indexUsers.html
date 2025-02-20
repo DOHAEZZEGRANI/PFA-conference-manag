@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Utilisateurs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         * {
@@ -130,9 +132,10 @@
 <nav>
     <img src="https://cdn-icons-png.flaticon.com/512/3381/3381269.png" alt="Logo">
     <ul>
-        <li><a href="/accueil">Accueil</a></li>
+        <li><a href="/accueil"><i class="fas fa-home"></i> Accueil</a></li>
         <li><a href="/conferenceIndex">Conférences</a></li>
-        <li><a href="/createArticle">Soumettre un Article</a></li>
+        <li class="nav-item"><a class="nav-link" href="/indexpage">Articles</a></li>
+
         <li class="nav-item">
             <a class="nav-link" href="/roles">Roles</a>
         </li>
@@ -141,12 +144,11 @@
     </ul>
 </nav>
 
-<h1 class="text-white text-2xl font-bold mt-20">Liste des Utilisateurs</h1>
+<h1 class="text-white text-2xl font-bold mt-20"><i class="fas fa-users"></i> Liste des Utilisateurs</h1>
 
 <table>
     <thead>
     <tr>
-        <th>ID</th>
         <th>Nom</th>
         <th>Email</th>
         <th>Rôle</th>
@@ -155,12 +157,11 @@
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.role != null ? user.role.name : 'Rôle non défini'}"></td>
         <td>
-            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce user ?');" th:href="@{/deleteUser(id=${user.id})}" class="text-red-500">Supprimer</a>
+            <a onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce user ?');" th:href="@{/deleteUser(id=${user.id})}" class="text-red-500"><i class="fas fa-trash"></i> Supprimer</a>
         </td>
     </tr>
     </tbody>

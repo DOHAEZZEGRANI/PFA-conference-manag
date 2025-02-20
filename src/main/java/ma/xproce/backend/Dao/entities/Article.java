@@ -40,6 +40,16 @@ public class Article {
 
     @OneToMany(mappedBy = "article")
     private Set<Evaluation> evaluations;
+    private long evaluationCount;  // For storing the count temporarily
+
+    // Getter and setter for evaluationCount
+    public long getEvaluationCount() {
+        return evaluationCount;
+    }
+
+    public void setEvaluationCount(long evaluationCount) {
+        this.evaluationCount = evaluationCount;
+    }
 
     // Getters and setters
 }
