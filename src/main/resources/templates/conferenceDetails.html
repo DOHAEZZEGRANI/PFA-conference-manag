@@ -29,15 +29,14 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        h2 {
+        h2, h3 {
             color: #ffffff;
             text-align: center;
             margin-bottom: 20px;
         }
 
-        p {
+        p, td, th {
             color: #f3f3f3;
-            margin-bottom: 10px;
         }
 
         .btn {
@@ -61,19 +60,48 @@
             justify-content: center;
             gap: 10px;
         }
+
+        .evaluation-container {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .evaluation-container h3 {
+            text-align: center;
+            color: #f3f3f3;
+        }
     </style>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="container">
-        <h2>Conference Details</h2>
-        <p>ID: <span th:text="${ConferenceWithDetails.id}"></span></p>
+        <h2>Détails de la conférence</h2>
         <p>Title: <span th:text="${ConferenceWithDetails.title}"></span></p>
         <p>Description: <span th:text="${ConferenceWithDetails.description}"></span></p>
         <p>Status: <span th:text="${ConferenceWithDetails.status}"></span></p>
         <p>Submission Start Date: <span th:text="${#temporals.format(ConferenceWithDetails.submissionStartDate, 'yyyy-MM-dd HH:mm')}"></span></p>
         <p>Submission End Date: <span th:text="${#temporals.format(ConferenceWithDetails.submissionEndDate, 'yyyy-MM-dd HH:mm')}"></span></p>
         <p>Conference Date: <span th:text="${#temporals.format(ConferenceWithDetails.conferenceDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+
+        <h3>Articles associés</h3>
+        <div class="evaluation-container">
+            <div th:if="${ConferenceWithDetails.articles.isEmpty()}">
+                <p>Aucun article disponible.</p>
+            </div>
+            <div th:each="article : ${ConferenceWithDetails.articles}" class="evaluation-item">
+                <div>
+                    <p><strong>Titre:</strong> <span th:text="${article.title}"></span></p>
+                    <p><strong>Résumé:</strong> <span th:text="${article.abstractText}"></span></p>
+                    <p><strong>Fichier:</strong>
+                        <a th:href="@{${article.filePath}}" th:text="${article.filePath}" target="_blank"></a>
+                    </p>
+                    <p><strong>Statut:</strong> <span th:text="${article.status}"></span></p>
+                    <p><strong>Date de soumission:</strong> <span th:text="${#temporals.format(article.submissionDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+                </div>
+            </div>
+        </div>
 
         <div class="center-button">
             <a class="btn btn-primary mt-3" th:href="@{/conferenceIndex}">Back to List</a>
